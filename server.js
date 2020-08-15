@@ -1,6 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
-import { urlencoded, json } from 'body-parser';
+import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import router from './routes/index';
 
@@ -20,8 +21,10 @@ mongoose.connection
 
 const app = express();
 
-app.use(urlencoded({ extended: true }));
-app.use(json());
+app.use(cookieParser());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
 app.use('/', router);
 app.use('/users', router);
 
