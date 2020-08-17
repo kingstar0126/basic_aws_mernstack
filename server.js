@@ -26,7 +26,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use('/', router);
-app.use('/users', router);
+app.use('/api/users', router);
 
 app.listen(port, () => {
   console.log(`Running on port ${port}`);

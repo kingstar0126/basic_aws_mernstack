@@ -8,10 +8,10 @@ const router = Router();
 // home route
 router.get('/', (req, res) => res.json({ message: 'This is Daily Recipe!!!' }));
 
-// rec routes
-router.post('/users', (req, res) => registerUser(req, res));
-router.get('/users/login', (req, res) => login(req, res));
-router.get('/users/logout', (req, res) => logout(req, res));
-router.get('/users/me', (req, res) => loggedUser(req, res));
+// user and auth routes
+router.post('/api/users/register', (req, res) => registerUser(req, res));
+router.get('/api/users/login', (req, res) => login(req, res));
+router.get('/api/users/logout', (req, res) => logout(req, res));
+router.get('/api/users/me', (req, res) => loggedUser(req, res));
 
 export default router;

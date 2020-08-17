@@ -15,14 +15,14 @@ function generateToken(userId, res) {
   const token = jwt.sign(
     { id: userId },
     process.env.TOKEN_SECRET,
-    { expiresIn: '5h' },
+    { expiresIn: '24h' },
   );
-  res.cookie('token', token, { expires: new Date(Date.now() + 18000 * 60), httpOnly: true });
+  res.cookie('token', token, { expires: new Date(Date.now() + 24 * 60 * 60 * 1000), httpOnly: true });
   res.json({ userId, token });
 }
 
 /**
- * Middleware function for POST /users
+ * Middleware function for POST /api/users/register
  * User sign-up, registers user to database
  * JSON body:
  *  - email
@@ -50,7 +50,7 @@ export async function registerUser(req, res) {
 }
 
 /**
- * Middleware function for GET /users/login
+ * Middleware function for GET /api/users/login
  * Logs in a user by creating connection with token and cookie
  *
  * JSON body:
@@ -70,12 +70,12 @@ export async function login(req, res) {
 }
 
 /**
- * Middleware function for GET /users/me
+ * Middleware function for GET /api/users/me
  * Returns data about the currently logged user
  */
 export async function loggedUser(req, res) {
   const { token } = req.cookies;
-  if (!token) return res.status(401).json({ error: 'No token provided :(' });
+  if (!token) return res.status(401).json({ error: 'No user is connected :(' });
 
   try {
     const verifiedUsr = jwt.verify(token, process.env.TOKEN_SECRET);
@@ -84,6 +84,26 @@ export async function loggedUser(req, res) {
   } catch (err) { res.status(400).json({ error: 'Invalid token :(' }); }
 }
 
+/**
+ * Middleware function for GET /api/users/logout
+ * Logs out a user by deleting thcookie with the token
+ */
 export async function logout(req, res) {
-  // in progress...
+  const { token } = req.cookies;
+  if (!token) return res.status(401).json({ error: 'No user is connected :(' });
+
+  res.cookie('token', '', { expires: new Date(Date.now()), httpOnly: true });
+  res.status(200).send('Sucessfuly logged out byeeee');
+}
+
+export function verifyToken(req, res, next) {
+  const header = req.headers.authorization;
+  const token = header.split('')[1];
+
+  if (!token) return res.status(401).json({ error: 'There is no token :(' });
+  jwt.verify(token, process.env.TOKEN_SECRET, (err, userData) => {
+    if (err) return res.send(403).json({ error: 'Failed to verify token :(' });
+    req.user = userData;
+    next();
+  });
 }
