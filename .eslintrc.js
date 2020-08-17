@@ -5,7 +5,7 @@ module.exports = {
   },
   extends: [
     'airbnb-base',
-    'react-app'
+    'react-app',
   ],
   globals: {
     Atomics: 'readonly',
@@ -26,10 +26,10 @@ module.exports = {
       'WithStatement',
     ],
   },
-  overrides:[
+  overrides: [
     {
       files: ['*.js'],
       excludedFiles: 'babel.config.js',
-    }
-  ]
+    },
+  ],
 };
