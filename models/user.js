@@ -17,7 +17,7 @@ const UserSchema = new Schema(
       minlength: 8,
     },
     recipes: [{ type: Schema.Types.ObjectId, ref: 'Recipe' }],
-    reviews: [{ type: Schema.Types.ObjectId, ref: 'Review' }],
+    plan: { type: Schema.Types.ObjectId, ref: 'Plan' },
   }, {
     timestamps: true,
   },

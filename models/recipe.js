@@ -3,15 +3,12 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 const RecipeSchema = new Schema(
   {
-    title: { type: String, required: [true, 'Recipe title is required'] },
-    user: { type: Schema.Types.ObjectId, ref: 'User' },
-    reviews: [{ type: Schema.Types.ObjectId, ref: 'Review' }],
-    stars: { type: Number, default: 0 },
-    tags: [{ type: Schema.Types.ObjectId, ref: 'Tags' }],
+    title: String,
     ingredients: [String],
-    steps: [String],
-    images: [String],
+    instructions: [String],
     duration: Number,
+    diet: { type: String, enum: ['Meat and veggies', 'veggies'] },
+    servings: { type: Number, enum: [2, 4] },
   }, {
     timestamps: true,
   },
