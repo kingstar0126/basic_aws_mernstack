@@ -1,5 +1,4 @@
 import jwt from 'jsonwebtoken';
-import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 import User from '../models/user';
 
@@ -22,7 +21,25 @@ function generateToken(userId, res) {
 }
 
 /**
- * Middleware function for POST /api/users/register
+ * Middleware function for routes that need to authenticate a user
+ * verifies the token sent in the Authorization header
+ */
+export function verifyToken(req, res, next) {
+  const header = req.header('authorization');
+  if (header) {
+    const token = header.split(' ')[1];
+
+    if (!token) return res.status(401).json({ error: 'Invalid token' });
+    jwt.verify(token, process.env.TOKEN_SECRET, (err, userData) => {
+      if (err) return res.status(403).json({ error: 'Failed to verify token' });
+      req.user = userData;
+      next();
+    });
+  } else res.status(401).json({ error: 'No user is logged in' });
+}
+
+/**
+ * Middleware function for POST /api/auth/register
  * User sign-up, registers user to database
  * JSON body:
  *  - email
@@ -50,7 +67,7 @@ export async function registerUser(req, res) {
 }
 
 /**
- * Middleware function for GET /api/users/login
+ * Middleware function for GET /api/auth/login
  * Logs in a user by creating connection with token and cookie
  *
  * JSON body:
@@ -70,22 +87,7 @@ export async function login(req, res) {
 }
 
 /**
- * Middleware function for GET /api/users/me
- * Returns data about the currently logged user
- */
-export async function loggedUser(req, res) {
-  const { token } = req.cookies;
-  if (!token) return res.status(401).json({ error: 'No user is connected :(' });
-
-  try {
-    const verifiedUsr = jwt.verify(token, process.env.TOKEN_SECRET);
-    const user = await User.findOne({ _id: mongoose.Types.ObjectId(verifiedUsr.id) });
-    if (user) return res.status(200).json({ email: user.email, name: user.name });
-  } catch (err) { res.status(400).json({ error: 'Invalid token :(' }); }
-}
-
-/**
- * Middleware function for GET /api/users/logout
+ * Middleware function for GET /api/auth/logout
  * Logs out a user by deleting thcookie with the token
  */
 export async function logout(req, res) {
@@ -94,16 +96,4 @@ export async function logout(req, res) {
 
   res.cookie('token', '', { expires: new Date(Date.now()), httpOnly: true });
   res.status(200).send('Sucessfuly logged out byeeee');
-}
-
-export function verifyToken(req, res, next) {
-  const header = req.headers.authorization;
-  const token = header.split('')[1];
-
-  if (!token) return res.status(401).json({ error: 'There is no token :(' });
-  jwt.verify(token, process.env.TOKEN_SECRET, (err, userData) => {
-    if (err) return res.send(403).json({ error: 'Failed to verify token :(' });
-    req.user = userData;
-    next();
-  });
 }
