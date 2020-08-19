@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { isEmail } from 'validator';
+import validator from 'validator';
 
 const { Schema } = mongoose;
 const UserSchema = new Schema(
@@ -9,15 +9,14 @@ const UserSchema = new Schema(
       type: String,
       required: [true, 'Email is required'],
       unique: true,
-      validate: [isEmail, 'Invalid email'],
+      validate: [validator.isEmail, 'Invalid email'],
     },
     password: {
       type: String,
       required: [true, 'Password is required'],
       minlength: 8,
     },
-    recipes: [{ type: Schema.Types.ObjectId, ref: 'Recipe' }],
-    plan: { type: Schema.Types.ObjectId, ref: 'Plan' },
+    planId: { type: Schema.Types.ObjectId, ref: 'Plan' },
   }, {
     timestamps: true,
   },
