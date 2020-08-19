@@ -26,6 +26,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use('/', router);
+app.use('/api/auth', router);
+app.use('/api/menu', router);
+app.use('/api/pricing', router);
 app.use('/api/users', router);
 
 app.listen(port, () => {
