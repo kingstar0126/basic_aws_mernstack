@@ -31,7 +31,7 @@ export function verifyToken(req, res, next) {
 
     if (!token) return res.status(401).json({ error: 'Invalid token' });
     jwt.verify(token, process.env.TOKEN_SECRET, (err, userData) => {
-      if (err) return res.status(403).json({ error: 'Failed to verify token' });
+      if (err) return res.status(403).json({ error: 'Incorrect token' });
       req.user = userData;
       next();
     });
@@ -51,18 +51,19 @@ export async function registerUser(req, res) {
   if (!req.body.email || !req.body.password) res.status(401).json({ error: 'Email and password are required' });
 
   User.findOne({ email: req.body.email }, async (err, user) => {
-    if (user) res.status(400).json({ email: 'Email already exists' });
-    else {
-      const salt = await bcrypt.genSalt(20);
-      const password = await bcrypt.hash(req.body.password, salt);
+    if (user) return res.status(400).json({ error: 'Email already exists' });
+    const newUser = new User({ name: req.body.name, email: req.body.email });
 
-      const user = await User.create({
-        name: req.body.name,
-        email: req.body.email,
-        password,
-      }).catch((err) => res.status(400).json({ error: `Invalid credentials :C ${err}` }));
-      generateToken(user._id, res);
-    }
+    bcrypt.genSalt(10, (err, salt) => {
+      bcrypt.hash(req.body.password, salt, (err, hash) => {
+        if (err) return res.status(400).json({ error: 'Could not encrypt password' });
+        newUser.password = hash;
+        newUser.save((err) => {
+          if (err) return res.status(400).json({ error: err.message });
+          generateToken(newUser._id, res);
+        });
+      });
+    });
   });
 }
 
@@ -77,13 +78,14 @@ export async function registerUser(req, res) {
 export async function login(req, res) {
   if (!req.body.email || !req.body.password) return res.status(401).json({ error: 'Email and password are required' });
 
-  const user = await User.findOne({ email: req.body.email });
-  if (!user) return res.status(400).json({ error: 'Invalid email :(' });
+  User.findOne({ email: req.body.email }, (err, user) => {
+    if (err) return res.status(400).json({ error: 'Email not found' });
 
-  const pwd = await bcrypt.compare(req.body.password, user.password);
-  if (!pwd) return res.status(400).json({ error: 'Invalid password :(' });
-
-  generateToken(user._id, res);
+    bcrypt.compare(req.body.password, user.password, (err, result) => {
+      if (err || !result) return res.status(400).json({ error: 'Wrong password' });
+      generateToken(user._id, res);
+    });
+  });
 }
 
 /**
@@ -92,8 +94,8 @@ export async function login(req, res) {
  */
 export async function logout(req, res) {
   const { token } = req.cookies;
-  if (!token) return res.status(401).json({ error: 'No user is connected :(' });
+  if (!token) return res.status(401).json({ error: 'No user is connected' });
 
   res.cookie('token', '', { expires: new Date(Date.now()), httpOnly: true });
-  res.status(200).send('Sucessfuly logged out byeeee');
+  res.redirect('/');
 }
