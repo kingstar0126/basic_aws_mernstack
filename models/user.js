@@ -16,7 +16,7 @@ const UserSchema = new Schema(
       required: [true, 'Password is required'],
       minlength: 8,
     },
-    planId: { type: Schema.Types.ObjectId, ref: 'Plan' },
+    planInstance: { type: Schema.Types.ObjectId, ref: 'PlanInstance' },
   }, {
     timestamps: true,
   },
