@@ -15,9 +15,10 @@ mongoose.connect(database,
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
-  });
-mongoose.connection
-  .on('error', console.error.bind(console, 'MongoDB connection error:'));
+    useFindAndModify: false,
+  })
+  .then(() => console.log('MongoDB is connected'))
+  .catch((err) => console.log('MongoDB connection error'));
 
 const app = express();
 
@@ -28,7 +29,7 @@ app.use(bodyParser.json());
 app.use('/', router);
 app.use('/api/auth', router);
 app.use('/api/menu', router);
-app.use('/api/pricing', router);
+app.use('/api/plans', router);
 app.use('/api/users', router);
 
 app.listen(port, () => {
