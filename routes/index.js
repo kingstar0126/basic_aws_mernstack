@@ -1,10 +1,15 @@
 import { Router } from 'express';
-import {
-  registerUser, login, logout, verifyToken,
-} from '../controllers/AuthController';
 import { getAllRecipes, getRecipe } from '../controllers/MenuController';
-import { getProfile, getUserPlan } from '../controllers/UserController';
-import getPlans from '../controllers/PricingController';
+import { getPlans, getPlanMenu, storeMenu } from '../controllers/PricingController';
+import {
+  registerUser, login,
+  logout, verifyToken,
+} from '../controllers/AuthController';
+import {
+  getProfile, getUserPlan,
+  choosePlan, getUserMenu,
+  getSelectedRecipes, selectRecipe,
+} from '../controllers/UserController';
 
 const router = Router();
 
@@ -12,19 +17,26 @@ const router = Router();
 router.get('/', (req, res) => res.json({ message: 'This is Daily Recipe!!!' }));
 
 // auth routes
-router.post('/api/auth/register', (req, res) => registerUser(req, res));
-router.get('/api/auth/login', (req, res) => login(req, res));
-router.get('/api/auth/logout', (req, res) => logout(req, res));
+router.post('/api/auth/register', registerUser);
+router.get('/api/auth/login', login);
+router.get('/api/auth/logout', logout);
 
 // menu routes
-router.get('/api/menu', (req, res) => getAllRecipes(req, res));
-router.get('/api/menu/:id', (req, res) => getRecipe(req, res));
+router.get('/api/menu', getAllRecipes);
+router.get('/api/menu/:id', getRecipe);
 
-// pricing route
-router.get('/api/pricing', (req, res) => getPlans(req, res));
+// plans route
+router.get('/api/plans', getPlans);
+router.get('/api/plan/menu/:planId', getPlanMenu);
+router.put('/api/plan/menu', storeMenu);
 
 // user routes
-router.get('/api/users/profile', verifyToken, (req, res) => getProfile(req, res));
-router.get('/api/users/plan', verifyToken, (req, res) => getUserPlan(req, res));
+router.use('/api/users', verifyToken);
+router.get('/api/users/profile', getProfile);
+router.get('/api/users/plan', getUserPlan);
+router.get('/api/users/menu', getUserMenu);
+router.get('/api/users/recipes', getSelectedRecipes);
+router.put('/api/users/recipes', selectRecipe);
+router.post('/api/users/plan', choosePlan);
 
 export default router;
