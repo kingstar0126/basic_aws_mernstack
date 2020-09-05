@@ -1,11 +1,9 @@
 {
   "name": "daily-recipe",
   "version": "0.1.0",
+  "description": "A delivery service website inspired by Blue Apron",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.5.0",
-    "@testing-library/user-event": "^7.2.1",
     "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.5",
@@ -13,39 +11,20 @@
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.0",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-scripts": "3.4.3",
     "validator": "^13.1.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "dev": "nodemon --exec babel-node --presets @babel/preset-env ./server.js"
+    "start": "nodemon --exec babel-node --presets @babel/preset-env ./server.js"
   },
   "eslintConfig": {
     "extends": [
-      "react-app",
       "airbnb"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
     ]
   },
   "devDependencies": {
     "@babel/core": "^7.11.1",
     "@babel/node": "^7.10.5",
+    "@babel/preset-env": "^7.11.0",
     "eslint-config-airbnb": "^18.2.0",
     "nodemon": "^2.0.4"
   }
