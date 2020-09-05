@@ -7,7 +7,7 @@ const RecipeSchema = new Schema(
     ingredients: [String],
     instructions: [String],
     duration: String,
-    diet: { type: String, enum: ['meat and vegetables', 'vegetarian'] },
+    diet: { type: String, enum: ['meat and vegetables', 'vegetables'] },
     servings: { type: Number, enum: [2, 4] },
   }, {
     timestamps: true,
