@@ -17,6 +17,16 @@ const UserSchema = new Schema(
       minlength: 8,
     },
     planInstance: { type: Schema.Types.ObjectId, ref: 'PlanInstance' },
+    address: String,
+    city: String,
+    state: String,
+    zip: Number,
+    phone: {
+      type: String,
+      validate: (phone) => (
+        validator.isMobilePhone(phone, 'en-US')
+      ),
+    },
   }, {
     timestamps: true,
   },
