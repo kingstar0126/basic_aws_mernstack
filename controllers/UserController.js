@@ -46,6 +46,30 @@ export function getUserMenu(req, res) {
 }
 
 /**
+ * Middleware function for POST /api/users/delivery
+ * Stores a user's delivery information
+ * JSON body:
+ *  - address
+ *  - phone
+ *  - city
+ *  - state
+ *  - phone
+ */
+export function setDeliveryInfo(req, res) {
+  const data = {
+    address: req.body.address,
+    phone: req.body.phone,
+    city: req.body.city,
+    state: req.body.state,
+    zip: req.body.zip,
+  };
+  User.findByIdAndUpdate(req.user.id, data, { new: true }, (err, user) => {
+    if (err) return res.status(400).json({ error: 'User not found' });
+    res.status(200).json(user);
+  });
+}
+
+/**
  * Middleware function for POST /api/users/plan/
  * Creates a plan instance for a user
  * JSON body:
