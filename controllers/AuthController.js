@@ -16,7 +16,7 @@ function generateToken(userId, res) {
     process.env.TOKEN_SECRET,
     { expiresIn: '24h' },
   );
-  res.cookie('token', token, { expires: new Date(Date.now() + 24 * 60 * 60 * 1000), httpOnly: true });
+  res.cookie('token', token, { expires: new Date(Date.now() + 24 * 60 * 60 * 1000), sameSite: true });
   res.json({ userId, token });
 }
 
@@ -25,11 +25,8 @@ function generateToken(userId, res) {
  * verifies the token sent in the Authorization header
  */
 export function verifyToken(req, res, next) {
-  const header = req.header('authorization');
-  if (header) {
-    const token = header.split(' ')[1];
-
-    if (!token) return res.status(401).json({ error: 'Invalid token' });
+  const token = req.cookies.token;
+  if (token) {
     jwt.verify(token, process.env.TOKEN_SECRET, (err, userData) => {
       if (err) return res.status(403).json({ error: 'Incorrect token' });
       req.user = userData;
