@@ -8,6 +8,7 @@ const PlanSchema = new Schema(
     recipesPerWeek: [Number],
     servings: { type: Number, enum: [2, 4] },
     pricePerServing: Number,
+    description: String,
     menu: [{ type: Schema.Types.ObjectId, ref: 'Recipe' }],
   },
 );
