@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
 
 /** User SignUp function component */
 const SignUp = ({ history }) => {
@@ -41,9 +42,9 @@ const SignUp = ({ history }) => {
   }
 
   return (
-    <div className='container'>
+    <Container className='my-5'>
+      <h2 className='my-3'>Sign up to begin</h2>
       <Form onSubmit={handleSignIn}>
-        <h3>Sign up to get started</h3>
         <Form.Group>
           <Form.Label>Name</Form.Label>
           <Form.Control
@@ -82,7 +83,7 @@ const SignUp = ({ history }) => {
         ''}
         <Button variant='primary' type='submit'>Continue</Button>
       </Form>
-    </div>
+    </Container>
   );
 }
 

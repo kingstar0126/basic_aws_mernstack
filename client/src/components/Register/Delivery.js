@@ -1,7 +1,20 @@
 import React, { useState } from 'react';
+// import { loadStripe } from "stripe";
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
+
+// const stripePromise = loadStripe("pk_test_51HRpxMFseyHrAR6RPpGwfSddqA1w7v87HBP8Ew3Xm7BN4iqcc1yDJoxWIXMgkt6KfURcHzKGFCJhJKgGQqldNU3j00kcWOtSBC");
+
+/* const checkoutBtn = () => {
+  return (
+    <Button id="checkout-button" role="link" onClick={handleCheckout}>
+      Checkout
+    </Button>
+  )
+} */
+
 
 /** User's delivery information component */
 const DeliveryForm = ({ history }) => {
@@ -47,11 +60,9 @@ const DeliveryForm = ({ history }) => {
   }
 
   return (
-    <div className='container'>
+    <Container className='my-5'>
     <section>
-      <header>
-        <h3>Delivery</h3>
-      </header>
+      <h2 className='my-3'>Your Delivery Information</h2>
       <Form onSubmit={handleDelivery}>
         <Form.Row>
           <Form.Group as={Col} >
@@ -97,7 +108,7 @@ const DeliveryForm = ({ history }) => {
         <Button variant="primary" type="submit">Continue</Button>
       </Form>
     </section>
-  </div>
+  </Container>
   )
 };
 

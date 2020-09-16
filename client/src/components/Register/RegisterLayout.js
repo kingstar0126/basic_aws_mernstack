@@ -1,12 +1,13 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
+import Container from 'react-bootstrap/Container';
 import Header from './Header';
 
 const RegisterLayout = ({ children }) => (
-  <div>
+  <Container>
     <Header />
     {children}
-  </div>
+  </Container>
 );
 
 const RegisterLayoutRoute = ({ component: Component, ...rest }) => (
