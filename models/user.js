@@ -23,9 +23,12 @@ const UserSchema = new Schema(
     zip: Number,
     phone: {
       type: String,
-      validate: (phone) => (
-        validator.isMobilePhone(phone, 'en-US')
-      ),
+      validate: {
+        validator: function(phoneNum) {
+          validator.isMobilePhone(phoneNum, 'en-US');
+        },
+        message: 'Must be a valid phone number',
+      }
     },
   }, {
     timestamps: true,
