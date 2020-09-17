@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
+// import UserContext from '../../UserContext';
 
 /** User SignUp function component */
 const SignUp = ({ history }) => {
@@ -11,6 +13,7 @@ const SignUp = ({ history }) => {
     password: '',
   });
   const [error, setError] = useState('');
+  // const { setUser } = useContext(UserContext);
 
   /** Handles form submition */
   const handleSignIn = (event) => {
@@ -18,7 +21,7 @@ const SignUp = ({ history }) => {
 
     const request = {
       method: 'POST',
-      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+      headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
       body: JSON.stringify(formState),
     };
     fetch('http://localhost:5000/api/auth/register', request)
@@ -26,20 +29,23 @@ const SignUp = ({ history }) => {
         // http response error
         response.json().then((data) => {
           if (data.error) setError(data.error);
-          else history.push('/delivery'); // go to /delivery
-        })
+          else {
+            // setUser(data.user);
+            history.push('/delivery'); // go to /delivery
+          }
+        });
       })
       .catch((error) => {
         console.log('An error happened', error);
         setError(error);
-      }) //network error 
-  }
- 
+      }); // network error
+  };
+
   /** Handles change on form's input fields */
   const handleChange = (event) => {
     const key = event.target.name;
-    setFormState({...formState, [key]: event.target.value });
-  }
+    setFormState({ ...formState, [key]: event.target.value });
+  };
 
   return (
     <Container className='my-5'>
@@ -78,13 +84,13 @@ const SignUp = ({ history }) => {
             Your password must be at least 8 characters long.
           </Form.Text>
         </Form.Group>
-        {error.length ?
-        <Form.Control.Feedback type='invalid' className='d-block'>{ error.length ? error : '' }</Form.Control.Feedback> :
-        ''}
+        {error.length
+          ? <Form.Control.Feedback type='invalid' className='d-block'>{ error.length ? error : '' }</Form.Control.Feedback>
+          : ''}
         <Button variant='primary' type='submit'>Continue</Button>
       </Form>
     </Container>
   );
-}
+};
 
 export default SignUp;
