@@ -64,7 +64,7 @@ export function setDeliveryInfo(req, res) {
     zip: req.body.zip,
   };
   User.findByIdAndUpdate(req.user.id, data, { new: true }, (err, user) => {
-    if (err) return res.status(400).json({ error: 'User not found' });
+    if (err) return res.status(400).json({ error: err.message });
     res.status(200).json(user);
   });
 }
