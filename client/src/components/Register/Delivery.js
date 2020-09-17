@@ -15,7 +15,6 @@ import Container from 'react-bootstrap/Container';
   )
 } */
 
-
 /** User's delivery information component */
 const DeliveryForm = ({ history }) => {
   const [formState, setFormState] = useState({
@@ -26,7 +25,7 @@ const DeliveryForm = ({ history }) => {
     zip: '',
   });
   const [error, setError] = useState('');
-  
+
   /** Handles form submition */
   const handleDelivery = (event) => {
     event.preventDefault();
@@ -34,30 +33,30 @@ const DeliveryForm = ({ history }) => {
     const request = {
       method: 'POST',
       headers: {
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(formState),
-    }; 
+    };
     fetch('http://localhost:5000/api/users/delivery', request)
       .then((response) => {
         // http response error
         response.json().then((data) => {
           if (data.error) setError(data.error);
           else history.push('/choosePlan'); // go to /choosePlan on success
-        })
+        });
       })
       .catch((error) => {
         console.log('An error happened', error);
         setError(error);
-      }) //network error 
-  }
+      }); // network error
+  };
 
   /** Handles form's input fields */
   const handleChange = (event) => {
     const key = event.target.name;
-    setFormState({ ...formState, [key]: event.target.value});
-  }
+    setFormState({ ...formState, [key]: event.target.value });
+  };
 
   return (
     <Container className='my-5'>
@@ -67,11 +66,11 @@ const DeliveryForm = ({ history }) => {
         <Form.Row>
           <Form.Group as={Col} >
             <Form.Label>Address</Form.Label>
-            <Form.Control name='address' onChange={handleChange} />
+            <Form.Control name='address' defaultValue='77 Your Street' onChange={handleChange} disabled />
           </Form.Group>
           <Form.Group as={Col}>
             <Form.Label>Phone</Form.Label>
-            <Form.Control name='phone' onChange={handleChange} />
+            <Form.Control name='phone' onChange={handleChange} defaultValue='(123)123-1234' disabled/>
           </Form.Group>
         </Form.Row>
         <Form.Row>
@@ -99,17 +98,17 @@ const DeliveryForm = ({ history }) => {
 
           <Form.Group as={Col}>
             <Form.Label>Zip</Form.Label>
-            <Form.Control name='zip' minLength='5' onChange={handleChange} />
+            <Form.Control name='zip' minLength='5' maxLength='5' onChange={handleChange} />
           </Form.Group>
         </Form.Row>
-        {error.length ?
-          <Form.Control.Feedback type='invalid' className='d-block'>{ error.length ? error : '' }</Form.Control.Feedback> :
-        ''}
+        {error.length
+          ? (<Form.Control.Feedback type='invalid' className='d-block'>{ error.length ? error : '' }</Form.Control.Feedback>
+          ) : ''}
         <Button variant="primary" type="submit">Continue</Button>
       </Form>
     </section>
   </Container>
-  )
+  );
 };
 
 export default DeliveryForm;
