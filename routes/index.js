@@ -18,7 +18,7 @@ const router = Router();
 
 // auth routes
 router.post('/api/auth/register', registerUser);
-router.get('/api/auth/login', login);
+router.post('/api/auth/login', login);
 router.get('/api/auth/logout', logout);
 
 // menu routes
