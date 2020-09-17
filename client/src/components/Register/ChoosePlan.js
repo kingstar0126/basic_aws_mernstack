@@ -6,9 +6,9 @@ import Button from 'react-bootstrap/Button';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 
-const ChoosePlan = () => {
+const ChoosePlan = ({ history }) => {
   const [plans, setPlans] = useState([]);
-  const [price, setPrice] = useState({Individual: 31.96, Family: 55.92, Vegetarian: 35.96});
+  const [price, setPrice] = useState({ Individual: 31.96, Family: 55.92, Vegetarian: 35.96 });
 
   useEffect(() => {
     const request = {
@@ -21,7 +21,6 @@ const ChoosePlan = () => {
         response.json().then((data) => {
           if (data.error) console.log(data.error);
           else {
-            console.log('seting the plan', data);
             setPlans(data);
           }
         });
@@ -35,31 +34,29 @@ const ChoosePlan = () => {
     const request = {
       method: 'POST',
       headers: {
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ planId, recipesPerWeek }),
-    }; 
+    };
     fetch('http://localhost:5000/api/users/plan', request)
       .then((response) => {
         // http response error
         response.json().then((data) => {
           if (data.error) console.log(data.error);
-          console.log(data)
-          // else history.push('/'); // go to /choosePlan on success
-        })
+          else history.push('/');
+        });
       })
       .catch((error) => {
         console.log('An error happened', error);
-      }) //network error 
+      }); // network error
   };
 
   return (
     <Container className='my-5'>
       <h2 className='my-3'>Choose Your Plan</h2>
       <CardDeck>
-        {plans.map((plan) => {
-          return (
+        {plans.map((plan) => (
             <Card key={plan.name} id={plan.name}>
               <p>image here</p>
               <Card.Body>
@@ -70,7 +67,10 @@ const ChoosePlan = () => {
                     {plan.recipesPerWeek.map((num) => (
                       <ToggleButton
                         type='radio' key={`${plan.name}-${num}`} value={num} name='radio'
-                        onChange={(event) => (setPrice({ ...price, [plan.name]: plan.pricePerServing * plan.servings * event.currentTarget.value }))}
+                        onChange={(e) => (setPrice({
+                          ...price,
+                          [plan.name]: plan.pricePerServing * plan.servings * e.currentTarget.value,
+                        }))}
                       >{num}</ToggleButton>
                     ))}
                   </ToggleButtonGroup>
@@ -86,8 +86,7 @@ const ChoosePlan = () => {
               </Card.Footer>
               <Button id={`btn-${plan.name}`} variant='primary' onClick={() => selectPlan(plan._id, price[plan.name])}>Select</Button>
             </Card>
-          );
-        })}
+        ))}
       </CardDeck>
     </Container>
   );
