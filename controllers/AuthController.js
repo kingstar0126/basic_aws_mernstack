@@ -10,14 +10,14 @@ import User from '../models/user';
  *  - userId: ID of the user to connect
  *  - res: response obj of middleware function
  */
-function generateToken(userId, res) {
+function generateToken(user, res) {
   const token = jwt.sign(
-    { id: userId },
+    user,
     process.env.TOKEN_SECRET,
     { expiresIn: '24h' },
   );
   res.cookie('token', token, { expires: new Date(Date.now() + 24 * 60 * 60 * 1000), sameSite: true });
-  res.json({ userId, token });
+  res.json({ user, token });
 }
 
 /**
@@ -57,7 +57,7 @@ export async function registerUser(req, res) {
         newUser.password = hash;
         newUser.save((err) => {
           if (err) return res.status(400).json({ error: err.message });
-          generateToken(newUser._id, res);
+          generateToken({ id: newUser._id, name: newUser.name, email: newUser.email }, res);
         });
       });
     });
@@ -65,7 +65,7 @@ export async function registerUser(req, res) {
 }
 
 /**
- * Middleware function for GET /api/auth/login
+ * Middleware function for POST /api/auth/login
  * Logs in a user by creating connection with token and cookie
  *
  * JSON body:
@@ -80,7 +80,7 @@ export async function login(req, res) {
 
     bcrypt.compare(req.body.password, user.password, (err, result) => {
       if (err || !result) return res.status(400).json({ error: 'Wrong password' });
-      generateToken(user._id, res);
+      generateToken({ id: user._id, name: user.name, email: user.email }, res);
     });
   });
 }
@@ -94,5 +94,5 @@ export async function logout(req, res) {
   if (!token) return res.status(401).json({ error: 'No user is connected' });
 
   res.cookie('token', '', { expires: new Date(Date.now()), httpOnly: true });
-  res.redirect('/');
+  res.status(200).send('Logged out successfuly');
 }
