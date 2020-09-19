@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
-// import UserContext from '../../UserContext';
+import UserContext from '../Context/UserContext';
 
 /** User SignUp function component */
 const SignUp = ({ history }) => {
@@ -13,7 +13,7 @@ const SignUp = ({ history }) => {
     password: '',
   });
   const [error, setError] = useState('');
-  // const { setUser } = useContext(UserContext);
+  const { setUser } = useContext(UserContext);
 
   /** Handles form submition */
   const handleSignIn = (event) => {
@@ -30,7 +30,8 @@ const SignUp = ({ history }) => {
         response.json().then((data) => {
           if (data.error) setError(data.error);
           else {
-            // setUser(data.user);
+            setUser(data.user);
+            console.log(data.user);
             history.push('/delivery'); // go to /delivery
           }
         });

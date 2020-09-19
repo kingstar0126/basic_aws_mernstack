@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
-// import UserContext from '../../UserContext';
+import UserContext from '../Context/UserContext';
 
 /** User LogIn function component */
 const LogIn = ({ history }) => {
@@ -11,7 +11,7 @@ const LogIn = ({ history }) => {
     password: '',
   });
   const [error, setError] = useState('');
-  // const { setUser } = useContext(UserContext);
+  const { setUser } = useContext(UserContext);
 
   /** Handles form submition */
   const handleSignIn = (event) => {
@@ -29,7 +29,7 @@ const LogIn = ({ history }) => {
         response.json().then((data) => {
           if (data.error) setError(data.error);
           else {
-            // setUser(data.user);
+            setUser(data.user);
             history.push('/'); // go to homepage
           }
         });
