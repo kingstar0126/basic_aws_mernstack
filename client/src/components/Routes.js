@@ -1,13 +1,13 @@
 import React, { useState, useMemo } from 'react';
 import { Switch, Router } from 'react-router-dom';
-import { createBrowserHistory as createHistory } from 'history';
+import { useHistory } from "react-router-dom";
 import SignUp from './Register/SignUp';
 import DeliveryForm from './Register/Delivery';
 import ChoosePlan from './Register/ChoosePlan';
 import LogIn from './Public/LogIn';
 import LogOut from './Public/LogOut';
 import Home from './Public/Home';
-// import UserContext from '../UserContext';
+import UserContext from './Context/UserContext';
 
 import PublicLayoutRoute from './Public/PublicLayout';
 import RegisterLayoutRoute from './Register/RegisterLayout';
@@ -19,12 +19,13 @@ const Menu = () => (
 );
 
 const Routes = () => {
-  const history = createHistory();
-  /* const [user, setUser] = useState(null);
-  const providerValue = useMemo(() => ({ user, setUser }), [user, setUser]); */
+  const history = useHistory();
+  const [user, setUser] = useState(null);
+  // const providerValue = useMemo(() => ({ user, setUser }), [user, setUser]); */
 
   return (
       <Router history={history}>
+        <UserContext.Provider value={{ user, setUser }}>
           <Switch>
             <PublicLayoutRoute exact path='/' component={Home} />
             <PublicLayoutRoute exact path='/menu' component={Menu} />
@@ -35,6 +36,7 @@ const Routes = () => {
             <RegisterLayoutRoute exact path='/delivery' component={DeliveryForm} />
             <RegisterLayoutRoute exact path='/choosePlan' component={ChoosePlan} />
           </Switch>
+        </UserContext.Provider>
       </Router>
   );
 };
