@@ -1,21 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import Container from 'react-bootstrap/Container';
+import UserContext from '../Context/UserContext';
+import { Link } from 'react-router-dom';
 
 const LogOut = () => {
   const [msg, setMsg] = useState('');
+  const { setUser } = useContext(UserContext);
 
   useEffect(() => {
     const request = {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     };
-    fetch('http://localhost:5000/api/logout', request)
+    fetch('http://localhost:5000/api/auth/logout', request)
       .then((response) => {
-        response.json().then((data) => {
-          if (data.error) setMsg(data.error);
-          else {
+            setUser(null);
             setMsg('You logged out successfully');
-          }
-        });
       })
       .catch((error) => {
         console.log('An error happened', error);
@@ -24,7 +24,10 @@ const LogOut = () => {
   });
 
   return (
-    <p>{msg}</p>
+    <Container className='d-flex flex-column justify-content-center'>
+      <p>{msg}</p>
+      <Link to='/'>back to homepage</Link>
+    </Container>
   );
 };
 
