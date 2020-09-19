@@ -75,28 +75,26 @@ export function setDeliveryInfo(req, res) {
  * JSON body:
  *  - planId: id of the selected plan
  *  - recipesPerWeek: attribute to update plan with
+ *  - totalPrice: total price of plan
  */
 export function choosePlan(req, res, next) {
-  if (!req.body.planId || !req.body.recipesPerWeek) {
-    return res.status(400).json({ error: 'No data provided to choose a plan' });
+  if (!req.body.planId || !req.body.recipesPerWeek || !req.body.totalPrice) {
+    return res.status(400).json({ error: 'Not enough data provided to choose a plan' });
   }
 
-  const data = {
+  const newData = {
     user: req.user.id,
     plan: req.body.planId,
     recipesPerWeek: req.body.recipesPerWeek,
+    totalPrice: req.body.totalPrice,
   };
 
-  PlanInstance.findOneAndUpdate(data, { new: true }, async (err, instance) => {
-    if (err) return res.status(400).json({ error: 'Unable to create plan instance' });
-    if (!instance) {
-      instance = await PlanInstance.create(data);
-    }
-    User.findByIdAndUpdate(req.user.id,
-      { planInstance: instance._id }, (err, user) => {
+  PlanInstance.findOneAndUpdate({ user: req.user.id }, newData, { new: true, upsert: true }, (err, instance) => {
+    if (err) return res.status(400).json({ error: 'Unable to choose plan' });
+    User.findByIdAndUpdate(req.user.id, { planInstance: instance._id }, (err, user) => {
         if (err) return res.status(404).json({ error: 'Could not find user' });
         res.status(200).json(instance);
-      });
+    });
   });
 }
 
