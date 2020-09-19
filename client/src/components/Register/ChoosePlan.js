@@ -8,6 +8,7 @@ import ToggleButton from 'react-bootstrap/ToggleButton';
 
 const ChoosePlan = ({ history }) => {
   const [plans, setPlans] = useState([]);
+  const [recipesNum, setRecipesNum] = useState(2);
   const [price, setPrice] = useState({ Individual: 31.96, Family: 55.92, Vegetarian: 35.96 });
 
   useEffect(() => {
@@ -30,14 +31,14 @@ const ChoosePlan = ({ history }) => {
       }); // network error
   }, []);
 
-  const selectPlan = (planId, recipesPerWeek) => {
+  const selectPlan = (planId, recipesPerWeek, totalPrice) => {
     const request = {
       method: 'POST',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ planId, recipesPerWeek }),
+      body: JSON.stringify({ planId, recipesPerWeek, totalPrice }),
     };
     fetch('http://localhost:5000/api/users/plan', request)
       .then((response) => {
@@ -67,10 +68,13 @@ const ChoosePlan = ({ history }) => {
                     {plan.recipesPerWeek.map((num) => (
                       <ToggleButton
                         type='radio' key={`${plan.name}-${num}`} value={num} name='radio'
-                        onChange={(e) => (setPrice({
-                          ...price,
-                          [plan.name]: plan.pricePerServing * plan.servings * e.currentTarget.value,
-                        }))}
+                        onChange={(e) => {
+                          setPrice({
+                            ...price,
+                            [plan.name]: plan.pricePerServing * plan.servings * e.currentTarget.value,
+                          });
+                          setRecipesNum(e.currentTarget.value);
+                        }}
                       >{num}</ToggleButton>
                     ))}
                   </ToggleButtonGroup>
@@ -84,7 +88,7 @@ const ChoosePlan = ({ history }) => {
                   <p>Weekly Price ${price[plan.name]}</p>
                 </div>
               </Card.Footer>
-              <Button id={`btn-${plan.name}`} variant='primary' onClick={() => selectPlan(plan._id, price[plan.name])}>Select</Button>
+              <Button id={`btn-${plan.name}`} variant='primary' onClick={() => selectPlan(plan._id, recipesNum, price[plan.name])}>Select</Button>
             </Card>
         ))}
       </CardDeck>
