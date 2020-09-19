@@ -1,6 +1,6 @@
 /* Home */
 .homeHeader {
-  background-image: url('./images/Header.jpg');
+  background-image: url('../../assets/Header.jpg');
   background-size: cover;
   height: 40vh;
 }

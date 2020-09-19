@@ -1,16 +1,15 @@
 import React, { useState, useMemo } from 'react';
-import { Switch, Router } from 'react-router-dom';
-import { useHistory } from "react-router-dom";
-import SignUp from './Register/SignUp';
-import DeliveryForm from './Register/Delivery';
-import ChoosePlan from './Register/ChoosePlan';
-import LogIn from './Public/LogIn';
-import LogOut from './Public/LogOut';
-import Home from './Public/Home';
-import UserContext from './Context/UserContext';
+import { Switch, Router, useHistory } from 'react-router-dom';
+import SignUp from './Authentication/SignUp';
+import DeliveryForm from './Billing/Delivery';
+import ChoosePlan from './Plans/ChoosePlan';
+import LogIn from './Authentication/LogIn';
+import LogOut from './Authentication/LogOut';
+import Home from './Homepage/Home';
+import UserContext from '../context/UserContext';
 
-import PublicLayoutRoute from './Public/PublicLayout';
-import RegisterLayoutRoute from './Register/RegisterLayout';
+import PublicLayoutRoute from './Layouts/Public/PublicLayout';
+import RegisterLayoutRoute from './Layouts/Register/RegisterLayout';
 
 const Menu = () => (
   <>

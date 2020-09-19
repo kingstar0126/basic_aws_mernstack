@@ -69,9 +69,10 @@ const ChoosePlan = ({ history }) => {
                       <ToggleButton
                         type='radio' key={`${plan.name}-${num}`} value={num} name='radio'
                         onChange={(e) => {
+                          const t = plan.pricePerServing * plan.servings * e.currentTarget.value;
                           setPrice({
                             ...price,
-                            [plan.name]: plan.pricePerServing * plan.servings * e.currentTarget.value,
+                            [plan.name]: t,
                           });
                           setRecipesNum(e.currentTarget.value);
                         }}

@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import { Link } from 'react-router-dom';
-import UserContext from '../Context/UserContext';
+import UserContext from '../../../context/UserContext';
 
 const Header = () => {
   const { user } = useContext(UserContext);

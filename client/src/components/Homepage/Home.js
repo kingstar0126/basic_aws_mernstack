@@ -35,10 +35,9 @@ const Steps = () => (
       </Col>
     </Row>
   </Container>
-)
+);
 
-const Home = ({ history }) => {
-  return (
+const Home = ({ history }) => (
     <>
       <Container fluid className='homeHeader d-flex align-items-center'>
         <Row className='mx-auto'>
@@ -48,8 +47,7 @@ const Home = ({ history }) => {
       </Container>
       <Steps />
     </>
-    
-  )
-}
+
+);
 
 export default Home;

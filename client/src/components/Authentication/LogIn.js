@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
-import UserContext from '../Context/UserContext';
+import UserContext from '../../context/UserContext';
 
 /** User LogIn function component */
 const LogIn = ({ history }) => {
