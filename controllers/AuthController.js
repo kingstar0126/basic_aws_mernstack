@@ -90,9 +90,9 @@ export async function login(req, res) {
  * Logs out a user by deleting thcookie with the token
  */
 export async function logout(req, res) {
-  const { token } = req.cookies;
+  const token = req.cookies.token;
   if (!token) return res.status(401).json({ error: 'No user is connected' });
 
-  res.cookie('token', '', { expires: new Date(Date.now()), httpOnly: true });
-  res.status(200).send('Logged out successfuly');
+  res.cookie('token', '', { expires: new Date(Date.now()), sameSite: true });
+  res.status(200).send('Logged out successfully');
 }
