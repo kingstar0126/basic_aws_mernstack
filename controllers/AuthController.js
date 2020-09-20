@@ -7,7 +7,7 @@ import User from '../models/user';
  * token: [created token]
  *
  * params:
- *  - userId: ID of the user to connect
+ *  - user: ID of the user to connect
  *  - res: response obj of middleware function
  */
 function generateToken(user, res) {
@@ -57,7 +57,7 @@ export async function registerUser(req, res) {
         newUser.password = hash;
         newUser.save((err) => {
           if (err) return res.status(400).json({ error: err.message });
-          generateToken({ id: newUser._id, name: newUser.name, email: newUser.email }, res);
+          generateToken({ id: newUser._id }, res);
         });
       });
     });
@@ -76,12 +76,13 @@ export async function login(req, res) {
   if (!req.body.email || !req.body.password) return res.status(401).json({ error: 'Email and password are required' });
 
   User.findOne({ email: req.body.email }, (err, user) => {
-    if (err) return res.status(400).json({ error: 'Email not found' });
-
-    bcrypt.compare(req.body.password, user.password, (err, result) => {
-      if (err || !result) return res.status(400).json({ error: 'Wrong password' });
-      generateToken({ id: user._id, name: user.name, email: user.email }, res);
-    });
+    if (err) return res.status(400).json({ error: 'Failed to log in' });
+    if (user) {
+      bcrypt.compare(req.body.password, user.password, (err, result) => {
+        if (err || !result) return res.status(400).json({ error: 'Wrong password' });
+        generateToken({ id: user._id }, res);
+      });
+    } else return res.status(400).json({ error: 'Email not found' });
   });
 }
 
