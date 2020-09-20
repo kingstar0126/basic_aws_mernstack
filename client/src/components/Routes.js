@@ -1,5 +1,6 @@
-import React, { useState, useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Switch, Router, useHistory } from 'react-router-dom';
+import { Cookies } from 'react-cookie';
 import SignUp from './Authentication/SignUp';
 import DeliveryForm from './Billing/Delivery';
 import ChoosePlan from './Plans/ChoosePlan';
@@ -17,10 +18,19 @@ const Menu = () => (
   </>
 );
 
+/** Defines all routes based on their layouts
+ * Passes history prop to all routes using useHistory hook
+ * Sets UserContext
+ * */
 const Routes = () => {
   const history = useHistory();
   const [user, setUser] = useState(null);
-  // const providerValue = useMemo(() => ({ user, setUser }), [user, setUser]); */
+
+  useEffect(() => {
+    const c = new Cookies();
+    const cookie = c.get('token');
+    if (cookie) setUser(cookie);
+  }, []);
 
   return (
       <Router history={history}>
