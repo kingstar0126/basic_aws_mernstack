@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import UserContext from '../../context/UserContext';
 
-/** User SignUp function component */
+/** Registers a new user */
 const SignUp = ({ history }) => {
   const [formState, setFormState] = useState({
     name: '',
@@ -15,7 +15,7 @@ const SignUp = ({ history }) => {
   const [error, setError] = useState('');
   const { setUser } = useContext(UserContext);
 
-  /** Handles form submition */
+  /** Handles form submition by calling API in backend */
   const handleSignIn = (event) => {
     event.preventDefault();
 
@@ -26,23 +26,21 @@ const SignUp = ({ history }) => {
     };
     fetch('http://localhost:5000/api/auth/register', request)
       .then((response) => {
-        // http response error
         response.json().then((data) => {
-          if (data.error) setError(data.error);
+          if (data.error) setError(data.error); // http response error
           else {
-            setUser(data.user);
-            console.log(data.user);
-            history.push('/delivery'); // go to /delivery
+            setUser(data.token);
+            history.push('/delivery');
           }
         });
       })
       .catch((error) => {
-        console.log('An error happened', error);
+        console.log('An error happened', error); // network error
         setError(error);
-      }); // network error
+      });
   };
 
-  /** Handles change on form's input fields */
+  /** Sets form's state when fields are changed by the user */
   const handleChange = (event) => {
     const key = event.target.name;
     setFormState({ ...formState, [key]: event.target.value });

@@ -3,10 +3,12 @@ import Container from 'react-bootstrap/Container';
 import { Link } from 'react-router-dom';
 import UserContext from '../../context/UserContext';
 
+/** Logs out the user */
 const LogOut = () => {
   const [msg, setMsg] = useState('');
   const { setUser } = useContext(UserContext);
 
+  /** Calls API and sets resets userContext */
   useEffect(() => {
     const request = {
       method: 'GET',

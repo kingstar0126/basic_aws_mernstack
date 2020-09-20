@@ -5,7 +5,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 
-// const stripePromise = loadStripe("pk_test_51HRpxMFseyHrAR6RPpGwfSddqA1w7v87HBP8Ew3Xm7BN4iqcc1yDJoxWIXMgkt6KfURcHzKGFCJhJKgGQqldNU3j00kcWOtSBC");
+// const stripePromise = loadStripe("pk_test...");
 
 /* const checkoutBtn = () => {
   return (
@@ -15,7 +15,7 @@ import Container from 'react-bootstrap/Container';
   )
 } */
 
-/** User's delivery information component */
+/** Gets the user's delivery information */
 const DeliveryForm = ({ history }) => {
   const [formState, setFormState] = useState({
     address: '',
@@ -26,7 +26,7 @@ const DeliveryForm = ({ history }) => {
   });
   const [error, setError] = useState('');
 
-  /** Handles form submition */
+  /** Handles form submition by calling API in backend */
   const handleDelivery = (event) => {
     event.preventDefault();
 
@@ -40,19 +40,18 @@ const DeliveryForm = ({ history }) => {
     };
     fetch('http://localhost:5000/api/users/delivery', request)
       .then((response) => {
-        // http response error
         response.json().then((data) => {
-          if (data.error) setError(data.error);
-          else history.push('/choosePlan'); // go to /choosePlan on success
+          if (data.error) setError(data.error); // http response error
+          else history.push('/choosePlan');
         });
       })
       .catch((error) => {
         console.log('An error happened', error);
-        setError(error);
-      }); // network error
+        setError(error); // network error
+      });
   };
 
-  /** Handles form's input fields */
+  /** Sets form's state when fields are changed by the user */
   const handleChange = (event) => {
     const key = event.target.name;
     setFormState({ ...formState, [key]: event.target.value });
@@ -102,7 +101,10 @@ const DeliveryForm = ({ history }) => {
           </Form.Group>
         </Form.Row>
         {error.length
-          ? (<Form.Control.Feedback type='invalid' className='d-block'>{ error.length ? error : '' }</Form.Control.Feedback>
+          ? (
+            <Form.Control.Feedback type='invalid' className='d-block'>
+              { error.length ? error : '' }
+            </Form.Control.Feedback>
           ) : ''}
         <Button variant="primary" type="submit">Continue</Button>
       </Form>

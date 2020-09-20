@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import UserContext from '../../context/UserContext';
 
-/** User LogIn function component */
+/** Logs in an existing user */
 const LogIn = ({ history }) => {
   const [formState, setFormState] = useState({
     email: '',
@@ -13,7 +13,7 @@ const LogIn = ({ history }) => {
   const [error, setError] = useState('');
   const { setUser } = useContext(UserContext);
 
-  /** Handles form submition */
+  /** Handles form submition by calling API in backend */
   const handleSignIn = (event) => {
     event.preventDefault();
 
@@ -25,22 +25,21 @@ const LogIn = ({ history }) => {
 
     fetch('http://localhost:5000/api/auth/login', request)
       .then((response) => {
-        // http response error
         response.json().then((data) => {
-          if (data.error) setError(data.error);
+          if (data.error) setError(data.error); // http response error
           else {
-            setUser(data.user);
-            history.push('/'); // go to homepage
+            setUser(data.token);
+            history.push('/');
           }
         });
       })
       .catch((error) => {
-        console.log('An error happened', error);
+        console.log('An error happened', error); // network error
         setError(error);
-      }); // network error
+      });
   };
 
-  /** Handles change on form's input fields */
+  /** Sets form's state when fields are changed by the user */
   const handleChange = (event) => {
     const key = event.target.name;
     setFormState({ ...formState, [key]: event.target.value });

@@ -6,11 +6,14 @@ import Button from 'react-bootstrap/Button';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 
+/** Displays all available plans and allows a user to choose a plan */
 const ChoosePlan = ({ history }) => {
   const [plans, setPlans] = useState([]);
   const [recipesNum, setRecipesNum] = useState(2);
+  const [error, setError] = useState('');
   const [price, setPrice] = useState({ Individual: 31.96, Family: 55.92, Vegetarian: 35.96 });
 
+  /** Calls API to get all plans (only re-render if there is an error) */
   useEffect(() => {
     const request = {
       method: 'GET',
@@ -18,19 +21,18 @@ const ChoosePlan = ({ history }) => {
     };
     fetch('http://localhost:5000/api/plans', request)
       .then((response) => {
-        // http response error
         response.json().then((data) => {
-          if (data.error) console.log(data.error);
-          else {
-            setPlans(data);
-          }
+          if (data.error) setError(data.error); // http error
+          else setPlans(data); // store plans
         });
       })
-      .catch((error) => {
+      .catch((err) => {
         console.log('An error happened', error);
-      }); // network error
-  }, []);
+        setError(err);
+      });
+  }, [error]);
 
+  /** Calls API to store the user's selected plan, recipes per week and total price */
   const selectPlan = (planId, recipesPerWeek, totalPrice) => {
     const request = {
       method: 'POST',
@@ -44,12 +46,13 @@ const ChoosePlan = ({ history }) => {
       .then((response) => {
         // http response error
         response.json().then((data) => {
-          if (data.error) console.log(data.error);
+          if (data.error) setError(data.error);
           else history.push('/');
         });
       })
-      .catch((error) => {
+      .catch((err) => {
         console.log('An error happened', error);
+        setError(err);
       }); // network error
   };
 
@@ -57,6 +60,7 @@ const ChoosePlan = ({ history }) => {
     <Container className='my-5'>
       <h2 className='my-3'>Choose Your Plan</h2>
       <CardDeck>
+        {error && <p className='invalid'>{error}</p> }
         {plans.map((plan) => (
             <Card key={plan.name} id={plan.name}>
               <p>image here</p>
@@ -64,10 +68,13 @@ const ChoosePlan = ({ history }) => {
                 <Card.Title>{plan.name}</Card.Title>
                 <Card.Text>{plan.description}</Card.Text>
                 <div className='d-flex align-items-center'>
-                  <ToggleButtonGroup name={plan.name} size='lg' >
+                  <ToggleButtonGroup type='radio' name={plan.name} value={recipesNum} size='lg' >
                     {plan.recipesPerWeek.map((num) => (
                       <ToggleButton
-                        type='radio' key={`${plan.name}-${num}`} value={num} name='radio'
+                        type='radio'
+                        key={`${plan.name}-${num}`}
+                        value={num}
+                        name='radio'
                         onChange={(e) => {
                           const t = plan.pricePerServing * plan.servings * e.currentTarget.value;
                           setPrice({
@@ -89,7 +96,11 @@ const ChoosePlan = ({ history }) => {
                   <p>Weekly Price ${price[plan.name]}</p>
                 </div>
               </Card.Footer>
-              <Button id={`btn-${plan.name}`} variant='primary' onClick={() => selectPlan(plan._id, recipesNum, price[plan.name])}>Select</Button>
+              <Button
+                id={`btn-${plan.name}`}
+                variant='primary'
+                onClick={() => selectPlan(plan._id, recipesNum, price[plan.name])}
+              >Select</Button>
             </Card>
         ))}
       </CardDeck>
