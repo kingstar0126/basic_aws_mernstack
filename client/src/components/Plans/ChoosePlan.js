@@ -28,7 +28,7 @@ const ChoosePlan = ({ history }) => {
       })
       .catch((err) => {
         console.log('An error happened', error);
-        setError(err);
+        setError(err.toString());
       });
   }, [error]);
 
@@ -52,7 +52,7 @@ const ChoosePlan = ({ history }) => {
       })
       .catch((err) => {
         console.log('An error happened', error);
-        setError(err);
+        setError(err.toString());
       }); // network error
   };
 

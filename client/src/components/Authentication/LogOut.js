@@ -21,7 +21,7 @@ const LogOut = () => {
       })
       .catch((error) => {
         console.log('An error happened', error);
-        setMsg(error);
+        setMsg(error.toString());
       });
   });
 

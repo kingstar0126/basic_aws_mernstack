@@ -36,7 +36,7 @@ const SignUp = ({ history }) => {
       })
       .catch((error) => {
         console.log('An error happened', error); // network error
-        setError(error);
+        setError(error.toString());
       });
   };
 

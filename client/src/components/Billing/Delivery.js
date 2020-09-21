@@ -47,7 +47,7 @@ const DeliveryForm = ({ history }) => {
       })
       .catch((error) => {
         console.log('An error happened', error);
-        setError(error); // network error
+        setError(error.toString()); // network error
       });
   };
 
