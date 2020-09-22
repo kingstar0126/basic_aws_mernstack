@@ -26,9 +26,9 @@ const LogOut = () => {
   });
 
   return (
-    <Container className='d-flex flex-column justify-content-center'>
-      <p>{msg}</p>
-      <Link to='/'>back to homepage</Link>
+    <Container className='d-flex flex-column justify-content-center align-items-center'>
+      <span>{msg}</span>
+      <Link to='/login'>Log in again</Link>
     </Container>
   );
 };
