@@ -9,7 +9,7 @@ const Header = () => {
   const { user } = useContext(UserContext);
 
   return (
-    <Navbar collapseOnSelect expand='md' sticky='top'>
+    <Navbar collapseOnSelect expand='md'>
       <Navbar.Brand as={Link} to='/'>Daily Recipe Logo</Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="navbar">

@@ -3,8 +3,11 @@ import Container from 'react-bootstrap/Container';
 import CardDeck from 'react-bootstrap/CardDeck';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton';
+import './plans.css';
 
 /** Displays all available plans and allows a user to choose a plan */
 const ChoosePlan = ({ history }) => {
@@ -46,23 +49,24 @@ const ChoosePlan = ({ history }) => {
       .then((response) => {
         // http response error
         response.json().then((data) => {
-          if (data.error) setError(data.error);
+          if (data.error) setError(data.error); // http response error
           else history.push('/');
         });
       })
       .catch((err) => {
-        console.log('An error happened', error);
+        console.log('An error happened', error); // network error
         setError(err.toString());
-      }); // network error
+      });
   };
 
   return (
     <Container className='my-5'>
       <h2 className='my-3'>Choose Your Plan</h2>
-      <CardDeck>
+      <CardDeck as={Row} className='justify-content-center'>
         {error && <p className='invalid'>{error}</p> }
         {plans.map((plan) => (
-            <Card key={plan.name} id={plan.name}>
+          <Col xs={12} lg={6} xl={4} className='py-2'>
+            <Card key={plan.name} id={plan.name} className='h-100'>
               <p>image here</p>
               <Card.Body>
                 <Card.Title>{plan.name}</Card.Title>
@@ -102,6 +106,7 @@ const ChoosePlan = ({ history }) => {
                 onClick={() => selectPlan(plan._id, recipesNum, price[plan.name])}
               >Select</Button>
             </Card>
+          </Col>
         ))}
       </CardDeck>
     </Container>
