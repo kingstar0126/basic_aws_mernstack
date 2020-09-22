@@ -1,0 +1,14 @@
+/* Styling for Authentication components */
+
+/* -- Sign Up -- */
+@media only screen and (min-width: 768px) {
+    .formContainer {
+        width: 75% !important;
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .formContainer {
+        width: 50% !important;
+    }
+}

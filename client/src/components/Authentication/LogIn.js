@@ -3,6 +3,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import UserContext from '../../context/UserContext';
+import './Authentication.css';
 
 /** Logs in an existing user */
 const LogIn = ({ history }) => {
@@ -46,7 +47,7 @@ const LogIn = ({ history }) => {
   };
 
   return (
-        <Container className='my-5'>
+        <Container className='my-5 formContainer'>
             <h2 className='my-3'>Log In</h2>
             <Form onSubmit={handleSignIn}>
                 <Form.Group>

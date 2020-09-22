@@ -5,6 +5,8 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 
+import './Billing.css';
+
 // const stripePromise = loadStripe("pk_test...");
 
 /* const checkoutBtn = () => {
@@ -58,27 +60,26 @@ const DeliveryForm = ({ history }) => {
   };
 
   return (
-    <Container className='my-5'>
-    <section>
+    <Container className='my-5 deliveryForm'>
       <h2 className='my-3'>Your Delivery Information</h2>
       <Form onSubmit={handleDelivery}>
         <Form.Row>
-          <Form.Group as={Col} >
+          <Form.Group as={Col} xs='auto' md='6'>
             <Form.Label>Address</Form.Label>
             <Form.Control name='address' defaultValue='77 Your Street' onChange={handleChange} disabled />
           </Form.Group>
-          <Form.Group as={Col}>
+          <Form.Group as={Col} xs='auto' md='6'>
             <Form.Label>Phone</Form.Label>
             <Form.Control name='phone' onChange={handleChange} defaultValue='(123)123-1234' disabled/>
           </Form.Group>
         </Form.Row>
         <Form.Row>
-          <Form.Group as={Col}>
+         <Form.Group as={Col} xs='auto' md='6'>
             <Form.Label>City</Form.Label>
             <Form.Control name='city' onChange={handleChange} />
           </Form.Group>
 
-          <Form.Group as={Col}>
+          <Form.Group as={Col} xs='auto' md='3'>
             <Form.Label>State</Form.Label>
             <Form.Control name='state' as="select" onChange={handleChange} >
               <option>Choose...</option>
@@ -95,7 +96,7 @@ const DeliveryForm = ({ history }) => {
             </Form.Control>
           </Form.Group>
 
-          <Form.Group as={Col}>
+          <Form.Group as={Col} xs='auto' md='3'>
             <Form.Label>Zip</Form.Label>
             <Form.Control name='zip' minLength='5' maxLength='5' onChange={handleChange} />
           </Form.Group>
@@ -108,7 +109,6 @@ const DeliveryForm = ({ history }) => {
           ) : ''}
         <Button variant="primary" type="submit">Continue</Button>
       </Form>
-    </section>
   </Container>
   );
 };

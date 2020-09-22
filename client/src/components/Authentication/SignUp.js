@@ -5,6 +5,8 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import UserContext from '../../context/UserContext';
 
+import './Authentication.css';
+
 /** Registers a new user */
 const SignUp = ({ history }) => {
   const [formState, setFormState] = useState({
@@ -47,8 +49,8 @@ const SignUp = ({ history }) => {
   };
 
   return (
-    <Container className='my-5'>
-      <h2 className='my-3'>Sign up to begin</h2>
+    <Container className='my-5 formContainer'>
+      <h2 className='my-md-3'>Sign up to begin</h2>
       <Form onSubmit={handleSignIn}>
         <Form.Group>
           <Form.Label>Name</Form.Label>
