@@ -12,6 +12,7 @@
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.0",
+    "stripe": "^8.97.0",
     "validator": "^13.1.1"
   },
   "scripts": {
