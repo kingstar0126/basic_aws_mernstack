@@ -32,7 +32,7 @@ const SignUp = ({ history }) => {
           if (data.error) setError(data.error); // http response error
           else {
             setUser(data.token);
-            history.push('/delivery');
+            history.push('/choosePlan');
           }
         });
       })

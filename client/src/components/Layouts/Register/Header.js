@@ -2,15 +2,14 @@ import React from 'react';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { Link, useLocation } from 'react-router-dom';
-import './Register.css';
 
 /** Register layout's header */
 const Header = () => {
   const location = useLocation();
   const steps = {
     '/signin': 'Sign Up',
-    '/delivery': 'Address and Billing',
     '/choosePlan': 'Choose Your Plan',
+    '/billing': 'Address and Billing',
   };
 
   return (

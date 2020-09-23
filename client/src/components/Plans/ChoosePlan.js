@@ -7,7 +7,6 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton';
-import './plans.css';
 
 /** Displays all available plans and allows a user to choose a plan */
 const ChoosePlan = ({ history }) => {
@@ -50,7 +49,7 @@ const ChoosePlan = ({ history }) => {
         // http response error
         response.json().then((data) => {
           if (data.error) setError(data.error); // http response error
-          else history.push('/');
+          else history.push('/billing');
         });
       })
       .catch((err) => {

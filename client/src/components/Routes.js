@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Switch, Router, useHistory } from 'react-router-dom';
 import { Cookies } from 'react-cookie';
 import SignUp from './Authentication/SignUp';
-import DeliveryForm from './Billing/Delivery';
+import Billing from './Billing/Billing';
 import ChoosePlan from './Plans/ChoosePlan';
 import LogIn from './Authentication/LogIn';
 import LogOut from './Authentication/LogOut';
@@ -42,7 +42,7 @@ const Routes = () => {
             <PublicLayoutRoute exact path='/logout' component={LogOut} />
 
             <RegisterLayoutRoute exact path='/signin' component={SignUp} />
-            <RegisterLayoutRoute exact path='/delivery' component={DeliveryForm} />
+            <RegisterLayoutRoute exact path='/billing' component={Billing} />
             <RegisterLayoutRoute exact path='/choosePlan' component={ChoosePlan} />
           </Switch>
         </UserContext.Provider>
