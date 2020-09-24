@@ -5,12 +5,14 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import path from 'path';
+import Stripe from 'stripe';
 import router from './routes/index';
 
 dotenv.config();
 
 const database = process.env.DB;
 const port = process.env.PORT;
+const stripePrivKey = process.env.STRIPE_PRIV_KEY;
 
 mongoose.connect(database,
   {
@@ -31,6 +33,18 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use(express.static(path.join(__dirname, 'client', 'build')));
+
+// Stripe setup
+const stripe = new Stripe(stripePrivKey);
+
+// Create Stripe's payment intent
+app.post("/api/create-payment-intent", async (req, res) => {
+  const paymentIntent = await stripe.paymentIntents.create({
+    amount: Math.floor(req.body.totalPrice * 100),
+    currency: 'usd' ,
+  });
+  res.json({clientSecret: paymentIntent.client_secret});
+});
 
 /* const allowedOrigins = ['http://localhost:3000']
 app.use(cors({
