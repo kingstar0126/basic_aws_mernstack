@@ -73,28 +73,29 @@ export function setDeliveryInfo(req, res) {
  * Middleware function for POST /api/users/plan/
  * Creates a plan instance for a user
  * JSON body:
- *  - planId: id of the selected plan
+ *  - plan: object of the selected plan's data
  *  - recipesPerWeek: attribute to update plan with
  *  - totalPrice: total price of plan
  */
 export function choosePlan(req, res, next) {
-  if (!req.body.planId || !req.body.recipesPerWeek || !req.body.totalPrice) {
+  if (!req.body.plan || !req.body.recipesPerWeek || !req.body.totalPrice) {
     return res.status(400).json({ error: 'Not enough data provided to choose a plan' });
   }
-
+  const price = req.body.plan.pricePerServing * req.body.plan.servings * req.body.recipesPerWeek;
   const newData = {
     user: req.user.id,
-    plan: req.body.planId,
+    plan: req.body.plan._id,
     recipesPerWeek: req.body.recipesPerWeek,
-    totalPrice: req.body.totalPrice,
+    totalPrice: price,
   };
+  PlanInstance.findOneAndUpdate({ user: req.user.id }, newData, { new: true, upsert: true })
+    .populate('plan').exec((err, instance) => {
+      if (err) return res.status(400).json({ error: 'Unable to choose plan' });
 
-  PlanInstance.findOneAndUpdate({ user: req.user.id }, newData, { new: true, upsert: true }, (err, instance) => {
-    if (err) return res.status(400).json({ error: 'Unable to choose plan' });
-    User.findByIdAndUpdate(req.user.id, { planInstance: instance._id }, (err, user) => {
-        if (err) return res.status(404).json({ error: 'Could not find user' });
-        res.status(200).json(instance);
-    });
+      User.findByIdAndUpdate(req.user.id, { planInstance: instance._id }, (err, user) => {
+          if (err) return res.status(404).json({ error: 'Could not find user' });
+          res.status(200).json(instance);
+      });
   });
 }
 
