@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Cookies } from 'react-cookie';
 import Container from 'react-bootstrap/Container';
 import CardDeck from 'react-bootstrap/CardDeck';
 import Card from 'react-bootstrap/Card';
@@ -14,6 +15,7 @@ const ChoosePlan = ({ history }) => {
   const [recipesNum, setRecipesNum] = useState(2);
   const [error, setError] = useState('');
   const [price, setPrice] = useState({ Individual: 31.96, Family: 55.92, Vegetarian: 35.96 });
+  const cookies = new Cookies();
 
   /** Calls API to get all plans (only re-render if there is an error) */
   useEffect(() => {
@@ -35,21 +37,26 @@ const ChoosePlan = ({ history }) => {
   }, [error]);
 
   /** Calls API to store the user's selected plan, recipes per week and total price */
-  const selectPlan = (planId, recipesPerWeek, totalPrice) => {
+  const selectPlan = (plan, recipesPerWeek, totalPrice) => {
     const request = {
       method: 'POST',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ planId, recipesPerWeek, totalPrice }),
+      body: JSON.stringify({ plan, recipesPerWeek, totalPrice }),
     };
     fetch('http://localhost:5000/api/users/plan', request)
       .then((response) => {
         // http response error
         response.json().then((data) => {
           if (data.error) setError(data.error); // http response error
-          else history.push('/billing');
+          else {
+            cookies.set('userPlan', // store the plan in a cookie
+              data,
+              { expires: new Date(Date.now() + (15 * 60 * 1000)), sameSite: true });
+            history.push('/billing');
+          }
         });
       })
       .catch((err) => {
@@ -102,7 +109,7 @@ const ChoosePlan = ({ history }) => {
               <Button
                 id={`btn-${plan.name}`}
                 variant='primary'
-                onClick={() => selectPlan(plan._id, recipesNum, price[plan.name])}
+                onClick={() => selectPlan(plan, recipesNum, price[plan.name])}
               >Select</Button>
             </Card>
           </Col>
