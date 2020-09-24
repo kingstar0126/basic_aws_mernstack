@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import { Cookies } from 'react-cookie';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Spinner from 'react-bootstrap/Spinner';
 
+import ToPay from './ToPay';
 import './Billing.css';
 
 /** Gets the user's delivery information */
@@ -23,17 +25,24 @@ const Billing = ({ history }) => {
   const stripe = useStripe();
   const elements = useElements();
 
-  // Make request to create a new PaymentIntent
+  /** Make request to create a new PaymentIntent */
   useEffect(() => {
+    const cookies = new Cookies();
     const stripeReq = {
       method: 'POST',
       headers: {
+        Accept: 'application/json',
         'Content-Type': 'application/json',
       },
+      body: JSON.stringify(cookies.get('userPlan')),
     };
-    fetch('/create-payment-intent', stripeReq)
-      .then((res) => res.json())
-      .then((data) => setClientSecret(data.clientSecret))
+    fetch('/api/create-payment-intent', stripeReq)
+      .then((res) => {
+        res.json().then((data) => {
+          if (data.error) setError(data.error);
+          else setClientSecret(data.clientSecret); // set cookie with client secret (Stripe)
+        });
+      })
       .catch((error) => setError(error.toString()));
   }, []);
 
@@ -61,13 +70,11 @@ const Billing = ({ history }) => {
                 card: elements.getElement(CardElement),
               },
             });
-            if (payload.error) {
-              setError(`Payment failed ${payload.error.message}`);
-            } else {
+            if (payload.error) setError(`Payment failed ${payload.error.message}`);
+            else {
               setLoading(false);
-              console.log(payload);
+              history.push('/');
             }
-            history.push('/');
           }
         });
       })
@@ -85,11 +92,13 @@ const Billing = ({ history }) => {
 
   /** Sets stripe's card state when changed by user */
   const handleCardChange = (event) => {
+    setLoading(false);
     setError(event.error ? event.error.message : '');
   };
 
   return (
     <Container className='my-5 billingForm'>
+      {ToPay()}
       <h2 className='my-3'>Your Delivery Information</h2>
       <Form onSubmit={handleBilling}>
         <Form.Row>
