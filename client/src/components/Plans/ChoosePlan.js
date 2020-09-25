@@ -69,7 +69,7 @@ const ChoosePlan = ({ history }) => {
     <Container className='my-5'>
       <h2 className='my-3'>Choose Your Plan</h2>
       <CardDeck as={Row} className='justify-content-center'>
-        {error && <p className='invalid'>{error}</p> }
+        {error && <Col xs={12} className='invalid-feedback d-block' role='alert'>{error}</Col>}
         {plans.map((plan) => (
           <Col xs={12} lg={6} xl={4} className='py-2'>
             <Card key={plan.name} id={plan.name} className='h-100'>
@@ -103,7 +103,7 @@ const ChoosePlan = ({ history }) => {
               <Card.Footer>
                 <div className='d-flex justify-content-between'>
                   <p>${plan.pricePerServing} per serving</p>
-                  <p>Weekly Price ${price[plan.name]}</p>
+                  <p className='text-right'>Weekly Price ${price[plan.name]}</p>
                 </div>
               </Card.Footer>
               <Button
