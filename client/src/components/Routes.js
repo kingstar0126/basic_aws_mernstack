@@ -8,6 +8,7 @@ import LogIn from './Authentication/LogIn';
 import LogOut from './Authentication/LogOut';
 import Home from './Homepage/Home';
 import UserContext from '../context/UserContext';
+import UserMenu from './UserMenu/UserMenu';
 
 import PublicLayoutRoute from './Layouts/Public/PublicLayout';
 import RegisterLayoutRoute from './Layouts/Register/RegisterLayout';
@@ -40,6 +41,7 @@ const Routes = () => {
             <PublicLayoutRoute exact path='/menu' component={Menu} />
             <PublicLayoutRoute exact path='/login' component={LogIn} />
             <PublicLayoutRoute exact path='/logout' component={LogOut} />
+            <PublicLayoutRoute exact path='/user/menu' component={UserMenu} />
 
             <RegisterLayoutRoute exact path='/signin' component={SignUp} />
             <RegisterLayoutRoute exact path='/billing' component={Billing} />
