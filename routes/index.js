@@ -7,7 +7,7 @@ import {
 } from '../controllers/AuthController';
 import {
   getProfile, getUserPlan,
-  choosePlan, getUserMenu, setDeliveryInfo,
+  choosePlan, getPlanInstance, setDeliveryInfo,
   getSelectedRecipes, selectRecipe,
 } from '../controllers/UserController';
 
@@ -34,7 +34,7 @@ router.put('/api/plan/menu', storeMenu);
 router.use('/api/users', verifyToken);
 router.get('/api/users/profile', getProfile);
 router.get('/api/users/plan', getUserPlan);
-router.get('/api/users/menu', getUserMenu);
+router.get('/api/users/planInstance', getPlanInstance);
 router.get('/api/users/recipes', getSelectedRecipes);
 router.put('/api/users/recipes', selectRecipe);
 router.post('/api/users/delivery', setDeliveryInfo);

@@ -29,15 +29,15 @@ export function getUserPlan(req, res) {
     });
 }
 
-/** Middleare function for GET /api/users/menu
+/** Middleware function for GET /api/users/planInstance/
  * Retrieves the current user's menu based on the plan they are subscribed to
 */
-export function getUserMenu(req, res) {
+export function getPlanInstance(req, res) {
   PlanInstance
     .findOne({ user: req.user.id })
     .populate({
       path: 'plan',
-      populate: 'menu',
+      populate: 'menu'
     })
     .exec((err, planInstance) => {
       if (err) return res.status(404).json({ error: 'Could not find a plan for this user' });
