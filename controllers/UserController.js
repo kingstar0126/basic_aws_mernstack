@@ -119,15 +119,17 @@ export function getSelectedRecipes(req, res) {
 export function selectRecipe(req, res) {
   PlanInstance.findOne({ user: req.user.id }, (err, planInstance) => {
     if (err) return res.status(400).json({ error: 'Unable to select this recipe' });
+    
     const recipes = planInstance.selectedRecipes;
+    const newRecipeId = req.body.recipeId;
 
-    if (recipes.length >= planInstance.recipesPerWeek) {
-      recipes.shift();
+    if (!recipes.includes(newRecipeId)) {
+      if (recipes.length >= planInstance.recipesPerWeek) recipes.shift();
+      recipes.push(newRecipeId);
+      planInstance.save((err) => {
+        if (err) return res.status(400).json({ error: 'Unable to update plan instance' });
+        res.status(200).json(planInstance.selectedRecipes);
+      });
     }
-    recipes.push(req.body.recipeId);
-    planInstance.save((err) => {
-      if (err) return res.status(400).json({ error: 'Unable to update plan instance' });
-      res.status(200).json(planInstance.selectedRecipes);
-    });
   });
 }
