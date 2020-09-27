@@ -9,15 +9,10 @@ import LogOut from './Authentication/LogOut';
 import Home from './Homepage/Home';
 import UserContext from '../context/UserContext';
 import UserMenu from './UserMenu/UserMenu';
+import Menu from './Menu/Menu';
 
 import PublicLayoutRoute from './Layouts/Public/PublicLayout';
 import RegisterLayoutRoute from './Layouts/Register/RegisterLayout';
-
-const Menu = () => (
-  <>
-    <div>MENU</div>
-  </>
-);
 
 /** Defines all routes based on their layouts
  * Passes history prop to all routes using useHistory hook

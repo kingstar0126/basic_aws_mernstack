@@ -1,0 +1,19 @@
+/** -- Menu component styling -- **/
+
+.filterBtn {
+    margin: 1rem 0;
+    background-color: transparent !important;
+    color: black !important;
+    border: none !important;
+    border-radius: 0 !important;
+}
+
+.filterBtn:hover{
+    border-bottom: 1px solid black !important;
+}
+
+@media only screen and (min-width: 576px) {
+    .filterBtn {
+        margin: 1rem 1rem;
+    }
+}
