@@ -9,7 +9,6 @@ import './userMenu.css';
 const UserMenu = () => {
   const [menu, setMenu] = useState([]);
   const [error, setError] = useState('');
-  const [recipesNum, setRecipesNum] = useState(2);
   const [selected, setSelected] = useState([]);
 
   useEffect(() => {
@@ -21,13 +20,7 @@ const UserMenu = () => {
       .then((request) => {
         request.json().then((data) => {
           if (data.error) setError(data.error);
-          else {
-            setMenu(data.plan.menu);
-            for (let i = 1; i <= data.recipesPerWeek; i += 1) {
-              setSelected([...selected, data.plan.menu[i]]);
-            }
-            setRecipesNum(data.recipesPerWeek);
-          }
+          else setMenu(data.plan.menu);
         });
       })
       .catch((error) => setError(error.toString()));
@@ -44,11 +37,7 @@ const UserMenu = () => {
       .then((request) => {
         request.json().then((data) => {
           if (data.error) setError(data.error);
-          else {
-            console.log('data is', data);
-            setSelected(data);
-            console.log('selected is, ', selected);
-          }
+          else setSelected(data);
         });
       })
       .catch((error) => setError(error.toString()));
@@ -58,7 +47,7 @@ const UserMenu = () => {
     <Container className='my-5 userMenu'>
       <CardDeck as={Row} className='justify-content-center'>
         {error && <Col xs={12} className='invalid-feedback d-block' role='alert'>{error}</Col>}
-        {menu.map((recipe, idx) => (
+        {menu.map((recipe) => (
           <Col xs={12} lg={6} xl={4} className='py-2'>
             <Card key={recipe.title} id={recipe._id} className={selected.includes(recipe._id) && 'active'} onClick={(e) => selectCard(e)}>
               <p>image here</p>
