@@ -114,22 +114,13 @@ export function getSelectedRecipes(req, res) {
  * Middleware function for PUT /api/users/recipes
  * Updates a plan instance's array of selected recipes.
  * JSON body:
- *  - recipeId: id of the selected recipe
+ *  - selectedRecipes: array of the ids of the selected recipes
  */
 export function selectRecipe(req, res) {
-  PlanInstance.findOne({ user: req.user.id }, (err, planInstance) => {
-    if (err) return res.status(400).json({ error: 'Unable to select this recipe' });
-    
-    const recipes = planInstance.selectedRecipes;
-    const newRecipeId = req.body.recipeId;
-
-    if (!recipes.includes(newRecipeId)) {
-      if (recipes.length >= planInstance.recipesPerWeek) recipes.shift();
-      recipes.push(newRecipeId);
-      planInstance.save((err) => {
-        if (err) return res.status(400).json({ error: 'Unable to update plan instance' });
-        res.status(200).json(planInstance.selectedRecipes);
-      });
-    }
+  const selectedRecipes = req.body.selectRecipes;
+  if (!selectedRecipes) return res.status(400).json({ error: 'Recipes were not provided'});
+  PlanInstance.findOneAndUpdate({ user: req.user.id }, { selectedRecipes }, (err, planInstance) => {
+    if (err) return res.status(400).json({ error: 'Unable to select recipes' });
+    return res.status(200).json(planInstance);
   });
 }
