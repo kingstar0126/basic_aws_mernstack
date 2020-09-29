@@ -104,7 +104,7 @@ export function choosePlan(req, res, next) {
  * Retrieves the user's selected recipes
  */
 export function getSelectedRecipes(req, res) {
-  PlanInstance.findOne({ user: req.user.id }).populate('selectedRecipes').exec((err, planInstance) => {
+  PlanInstance.findOne({ user: req.user.id }).exec((err, planInstance) => {
     if (err) return res.status(400).json({ error: 'Couldn\'t find a plan instance for this user' });
     res.status(200).json(planInstance.selectedRecipes);
   });
@@ -117,10 +117,13 @@ export function getSelectedRecipes(req, res) {
  *  - selectedRecipes: array of the ids of the selected recipes
  */
 export function selectRecipe(req, res) {
-  const selectedRecipes = req.body.selectRecipes;
+  const selectedRecipes = req.body.selectedRecipes;
   if (!selectedRecipes) return res.status(400).json({ error: 'Recipes were not provided'});
   PlanInstance.findOneAndUpdate({ user: req.user.id }, { selectedRecipes }, (err, planInstance) => {
     if (err) return res.status(400).json({ error: 'Unable to select recipes' });
+    if (selectedRecipes.length !== planInstance.recipesPerWeek) {
+      return res.status(400).json({ error: `You can choose up to ${planInstance.recipesPerWeek}`});
+    }
     return res.status(200).json(planInstance);
   });
 }
