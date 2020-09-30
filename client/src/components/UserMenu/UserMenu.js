@@ -5,6 +5,7 @@ import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
+import Image from 'react-bootstrap/Image';
 import './userMenu.css';
 
 const UserMenu = () => {
@@ -41,11 +42,9 @@ const UserMenu = () => {
       .then((request) => {
         request.json().then((data) => {
           if (data.error) setError(data.error);
-          else {
-            if (data) { // if user has already selected their recipes
-              setSelected(data);
-              setIsSaved(true);
-            }
+          else if (data) { // if user has already selected their recipes
+            setSelected(data);
+            setIsSaved(true);
           }
         });
       })
@@ -78,7 +77,7 @@ const UserMenu = () => {
 
   const unselectCard = (recipeId) => {
     setSelected(selected.filter((val) => val !== recipeId));
-  }
+  };
 
   return (
     <Container className='my-5 userMenu'>
@@ -90,7 +89,7 @@ const UserMenu = () => {
             <Card key={recipe.title} id={recipe._id} className={selected.includes(recipe._id) && 'active'}>
               {selected.includes(recipe._id) ? (
                 <>
-                  <p>image here</p>
+                  <Image fluid src={`https://source.unsplash.com/random/?${recipe.title}`} />
                   <span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
                       <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
@@ -111,7 +110,7 @@ const UserMenu = () => {
                 </>
               ) : (
                 <>
-                  <p>image here</p>
+                  <Image fluid src={`https://source.unsplash.com/random/?${recipe.title}`} />
                   {
                     selected.length !== recipesNum && (
                       <Button key={recipe._id} onClick={(e) => selectCard(recipe._id)}>
