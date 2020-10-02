@@ -1,19 +1,22 @@
 /** -- Menu component styling -- **/
 
-.filterBtn {
-    margin: 1rem 0;
-    background-color: transparent !important;
-    color: black !important;
-    border: none !important;
-    border-radius: 0 !important;
+.plansFilter {
+    display: flex;
+    flex-direction: row;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    justify-content: center;
 }
 
-.filterBtn:hover{
-    border-bottom: 1px solid black !important;
+.planItem {
+    text-decoration: none;
+    text-align: center;
+    list-style: none;
+    margin: 1rem;
+    cursor: pointer;
 }
 
-@media only screen and (min-width: 576px) {
-    .filterBtn {
-        margin: 1rem 1rem;
-    }
+.planItem.active {
+    border-bottom: 2px solid black;
 }

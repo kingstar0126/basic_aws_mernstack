@@ -2,10 +2,9 @@ import React, { useEffect, useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
-import ToggleButton from 'react-bootstrap/ToggleButton';
 import CardDeck from 'react-bootstrap/CardDeck';
 import Card from 'react-bootstrap/Card';
+import Image from 'react-bootstrap/Image';
 
 import './menu.css';
 
@@ -13,7 +12,7 @@ const Menu = () => {
   const [menu, setMenu] = useState([]);
   const [error, setError] = useState([]);
   const [plans, setPlans] = useState([]);
-  const [defaultPlan, setDefaultPlan] = useState('');
+  const [currPlan, setCurrPlan] = useState({});
 
   useEffect(() => {
     const request = {
@@ -26,7 +25,7 @@ const Menu = () => {
           if (data.error) setError(data.error); // http error
           else {
             setPlans(data); // store plans
-            setDefaultPlan(data[0]._id);
+            selectFilter(data[0]._id, data[0].name, data[0].description);
           }
         });
       })
@@ -35,10 +34,6 @@ const Menu = () => {
         setError(err.toString());
       });
   }, [error]);
-
-  useEffect(() => {
-    filterMenu(defaultPlan);
-  }, [defaultPlan]);
 
   const filterMenu = (planId) => {
     const request = {
@@ -58,40 +53,50 @@ const Menu = () => {
       });
   };
 
+  const selectFilter = (planId, name, description) => {
+    console.log(planId, name, description)
+    filterMenu(planId);
+    setCurrPlan({ name, description });
+  }
+
   return (
     <Container className='my-5'>
       <header>
         <h1 className='text-center'>Explore Our Menus</h1>
       </header>
-      <Row className='d-flex justify-content-center'>
-        <ToggleButtonGroup type="radio" name="options" defaultValue={0}>
-          {plans.map((plan, idx) => (
-            <ToggleButton key={idx} value={idx} onClick={() => filterMenu(plan._id)} className='filterBtn'>
-              <div className='d-flex flex-column'>
-                <span>{plan.name}</span>
+      <Row className='d-flex justify-content-center mb-3'>
+        <ul className='plansFilter'>
+          {plans.map((plan) => {
+            return(
+            <li
+              key={plan.name}
+              className={currPlan.name === plan.name ? 'active planItem' : 'planItem'}
+              onClick={() => selectFilter(plan._id, plan.name, plan.description)}>
+                <h5>{plan.name}</h5>
                 <span>Serves {plan.servings}</span>
-              </div>
-            </ToggleButton>
-          ))}
-        </ToggleButtonGroup>
+            </li>
+            )
+         })}
+        </ul>
+        <Col className='text-center mb-2' xs={12} md={6}>{currPlan && currPlan.description}</Col>
       </Row>
       <Container>
-        <CardDeck>
-        {error && <Col xs={12} className='invalid-feedback d-block' role='alert'>{error}</Col>}
-        {menu.map((recipe) => (
-          <Col xs={12} lg={6} xl={4} className='py-2' key={recipe.title}>
-            <Card key={recipe.title} id={recipe._id} >
-              <p>image here</p>
-              <Card.Body>
-                <Card.Title>{recipe.title}</Card.Title>
-                <div className='d-flex justify-content-between'>
-                  <span>{recipe.duration}</span>
-                  <span>Details</span>
-                </div>
-              </Card.Body>
-            </Card>
-          </Col>
-        ))}
+        <CardDeck as={Row} className='justify-content-center'>
+          {error && <Col xs={12} className='invalid-feedback d-block' role='alert'>{error}</Col>}
+          {menu.map((recipe) => (
+            <Col xs={12} md={8} lg={6} xl={4} className='cardWrapper p-lg-0' key={recipe.name}>
+              <Card key={recipe.title} id={recipe._id}>
+                <Image fluid src={`https://source.unsplash.com/random/358x300/?${recipe.title}`} />
+                    <Card.Body>
+                    <Card.Title>{recipe.title}</Card.Title>
+                      <div className='d-flex justify-content-between'>
+                        <span>{recipe.duration}</span>
+                        <span>Details</span>
+                      </div>
+                    </Card.Body>
+              </Card>
+            </Col>
+          ))}
         </CardDeck>
       </Container>
     </Container>
