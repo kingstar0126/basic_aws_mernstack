@@ -6,7 +6,7 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import Image from 'react-bootstrap/Image';
-import './userMenu.css';
+import './upcoming.css';
 
 const UserMenu = () => {
   const [menu, setMenu] = useState([]);
@@ -15,6 +15,7 @@ const UserMenu = () => {
   const [selected, setSelected] = useState([]);
   const [isSaved, setIsSaved] = useState(false);
 
+  /** Calls API for the menu of the user's plan */
   useEffect(() => {
     const request = {
       method: 'GET',
@@ -33,6 +34,7 @@ const UserMenu = () => {
       .catch((error) => setError(error.toString()));
   }, []);
 
+  /** Calls API to check if user already has recipes saved on their plan instance */
   useEffect(() => {
     const request = {
       method: 'GET',
@@ -42,7 +44,7 @@ const UserMenu = () => {
       .then((request) => {
         request.json().then((data) => {
           if (data.error) setError(data.error);
-          else if (data) { // if user has already selected their recipes
+          else if (data.length) { // if user has already selected their recipes
             setSelected(data);
             setIsSaved(true);
           }
@@ -51,6 +53,7 @@ const UserMenu = () => {
       .catch((error) => setError(error.toString()));
   }, []);
 
+  /** Handles button to save or change selected recipes */
   const saveRecipes = () => {
     setError('');
     const request = {
@@ -71,35 +74,69 @@ const UserMenu = () => {
       .catch((error) => setError(error.toString()));
   };
 
+  /** Add clicked recipe to array of selected recipes */
   const selectCard = (recipeId) => {
     setSelected([...selected, recipeId]);
   };
 
+  /** Remove recipe from array of selected recipes */
   const unselectCard = (recipeId) => {
     setSelected(selected.filter((val) => val !== recipeId));
   };
 
+  const displayAmount = () => {
+    const deliveryDate = new Date(Date.now() + (7 * 24 * 60 * 60 * 1000));
+    return (
+      <>
+        <div className='d-flex justify-content-between my-2'>
+          <div className='d-flex flex-column'>
+            <span>Arriving</span>
+            <span>
+              {`${deliveryDate.getMonth() + 1}/${deliveryDate.getDate()}/${deliveryDate.getFullYear()}`}
+            </span>
+          </div>
+          {
+            isSaved
+              ? (<Button type='submit' onClick={() => setIsSaved(false)}>Change Recipes</Button>)
+              : (<Button type='submit' onClick={() => saveRecipes(selected)}>Save</Button>)
+          }
+        </div>
+        {!isSaved && (
+          <div className='suggestion'>
+            {selected.length === recipesNum
+              ? <div>Good choices! now click on the save button</div>
+              : <div>Add or remove recipes and click on save when you are ready</div>
+            }
+            <div>Selected recipes: {selected.length}/{recipesNum}</div>
+          </div>
+        )}
+      </>
+  )};
+
   return (
-    <Container className='my-5 userMenu'>
-      <h1>Choose your recipes for this week</h1>
+    <Container className='my-5 userMenu p-lg-0'>
+      <h1 className='m-2 mx-md-auto'>Select Upcoming Orders</h1>
+      {displayAmount()}
       <CardDeck as={Row} className='justify-content-center'>
         {error && <Col xs={12} className='invalid-feedback d-block' role='alert'>{error}</Col>}
         {menu.map((recipe) => (
-          <Col xs={12} lg={6} xl={4} className='py-2'>
-            <Card key={recipe.title} id={recipe._id} className={selected.includes(recipe._id) && 'active'}>
+          <Col xs={12} md={8} lg={6} xl={4} className='cardWrapper p-lg-0'>
+            <Card key={recipe.title} id={recipe._id} className={selected.includes(recipe._id) && 'selected'}>
+              <Image fluid src={`https://source.unsplash.com/random/358x300/?${recipe.title}`} />
               {selected.includes(recipe._id) ? (
                 <>
-                  <Image fluid src={`https://source.unsplash.com/random/?${recipe.title}`} />
-                  <span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
-                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                    </svg>
-                  </span>
-                   <Button onClick={() => unselectCard(recipe._id)} disabled={isSaved}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
-                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
-                    </svg>
-                   </Button>
+                  <div className='d-flex justify-content-between selectedBtnDiv'>
+                    <span className='checkmark'>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="white" viewBox="0 0 24 24" stroke="green">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </span>
+                    <Button onClick={() => unselectCard(recipe._id)} disabled={isSaved} className='unselectBtn'>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="white" viewBox="0 0 24 24" stroke="red">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </Button>
+                  </div>
                   <Card.Body>
                   <Card.Title>{recipe.title}</Card.Title>
                     <div className='d-flex justify-content-between'>
@@ -110,12 +147,11 @@ const UserMenu = () => {
                 </>
               ) : (
                 <>
-                  <Image fluid src={`https://source.unsplash.com/random/?${recipe.title}`} />
                   {
                     selected.length !== recipesNum && (
-                      <Button key={recipe._id} onClick={(e) => selectCard(recipe._id)}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
-                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clipRule="evenodd" />
+                      <Button key={recipe._id} onClick={(e) => selectCard(recipe._id)} className='selectBtn'>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="white" viewBox="0 0 24 24" stroke="green">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                       </Button>
                     )
@@ -133,11 +169,6 @@ const UserMenu = () => {
           </Col>
         ))}
         </CardDeck>
-        {
-          isSaved
-            ? (<Button type='submit' onClick={() => setIsSaved(false)}>Change</Button>)
-            : (<Button type='submit' onClick={() => saveRecipes(selected)}>Save</Button>)
-        }
     </Container>
   );
 };

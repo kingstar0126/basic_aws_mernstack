@@ -1,8 +1,0 @@
-/** -- User Menu -- **/
-.userMenu .active {
-    border: 1px solid red;
-}
-
-.userMenu img {
-    height: 300px;
-}

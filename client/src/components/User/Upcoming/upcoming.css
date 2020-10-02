@@ -1,0 +1,58 @@
+/** -- User Menu -- **/
+
+.cardWrapper {
+    margin-bottom: 2rem !important;
+}
+
+.userMenu .card {
+    position: relative;
+}
+
+.userMenu .selected {
+    border: 2px solid green;
+}
+
+.userMenu img {
+    height: 300px;
+}
+
+.selectBtn, .unselectBtn {
+    background-color: transparent !important;
+    border: none;
+    border-radius: 0;
+    width: max-content;
+    height: max-content;
+}
+
+.selectBtn {
+    position: absolute;
+    right: 0;
+    z-index: 1;
+}
+
+.selectedBtnDiv {
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+}
+
+.selectBtn:hover, .unselectBtn:hover {
+    background-color: transparent !important;
+    border: none;
+    border-radius: 0;
+}
+
+.checkmark {
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    width: 49px;
+    height: 38.8px;
+}
+
+.suggestion {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+}
