@@ -1,0 +1,68 @@
+/** -- Recipe styling -- **/
+
+.recipeDescription {
+    border-bottom: 0.5px solid gray;
+}
+
+.recipeDescription svg {
+    margin: 1rem;
+}
+
+.recipeDiet {
+    background-color: greenyellow;
+    border-radius: 20px;
+    padding: 5px;
+}
+
+.ingredients {
+    border-bottom: 0.5px solid gray;
+}
+
+.ingredientItems ul, .steps ul {
+    padding: 0;
+}
+
+.ingredientItems li {
+    list-style: none;
+    padding: 0.7rem;
+}
+
+.ingredientItems li input {
+    margin: 5px;
+}
+
+.steps li {
+    list-style: none;
+    padding: 0.5rem;
+}
+
+.steps li svg {
+    margin: 9px;
+}
+
+/** large screens **/
+
+@media only screen and (min-width: 992px) {
+    .ingredientItems {
+        columns: 2;
+    }
+
+    .modal-body > .recipe {
+        margin: 0 !important;
+    }
+}
+
+/** -- RecipeModal styling -- **/
+.modal-header {
+    height: 1rem;
+}
+
+.modal-header .close {
+    padding: 0.2rem 0.5rem;
+}
+
+.modal-backdrop.show
+{
+    opacity: 0.21;
+}
+
