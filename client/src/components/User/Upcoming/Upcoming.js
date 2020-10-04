@@ -6,14 +6,18 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import Image from 'react-bootstrap/Image';
+
+import RecipeModal from '../../Recipe/RecipeModal';
 import './upcoming.css';
 
-const UserMenu = () => {
+/** Shows user available recipes to choose from in upcoming weeks */
+const Upcoming = ({ history }) => {
   const [menu, setMenu] = useState([]);
   const [recipesNum, setRecipesNum] = useState(0);
   const [error, setError] = useState('');
   const [selected, setSelected] = useState([]);
   const [isSaved, setIsSaved] = useState(false);
+  const [showRecipe, setShowRecipe] = useState(false);
 
   /** Calls API for the menu of the user's plan */
   useEffect(() => {
@@ -53,7 +57,7 @@ const UserMenu = () => {
       .catch((error) => setError(error.toString()));
   }, []);
 
-  /** Handles button to save or change selected recipes */
+  /** Button handler that calls API to save the selected recipes */
   const saveRecipes = () => {
     setError('');
     const request = {
@@ -65,10 +69,7 @@ const UserMenu = () => {
       .then((request) => {
         request.json().then((data) => {
           if (data.error) setError(data.error);
-          else {
-            // setSelected(data);
-            setIsSaved(true);
-          }
+          else setIsSaved(true);
         });
       })
       .catch((error) => setError(error.toString()));
@@ -84,6 +85,7 @@ const UserMenu = () => {
     setSelected(selected.filter((val) => val !== recipeId));
   };
 
+  /** Dynamically displays details about the recipe selection process */
   const displayAmount = () => {
     const deliveryDate = new Date(Date.now() + (7 * 24 * 60 * 60 * 1000));
     return (
@@ -111,7 +113,8 @@ const UserMenu = () => {
           </div>
         )}
       </>
-  )};
+    );
+  };
 
   return (
     <Container className='my-5 userMenu p-lg-0'>
@@ -141,7 +144,11 @@ const UserMenu = () => {
                   <Card.Title>{recipe.title}</Card.Title>
                     <div className='d-flex justify-content-between'>
                       <span>{recipe.duration}</span>
-                      <span>Details</span>
+                      <Button onClick={() => setShowRecipe(true)}>Details</Button>
+                      <RecipeModal
+                        id={recipe._id}
+                        show={showRecipe}
+                        hide={() => setShowRecipe(false)} />
                     </div>
                   </Card.Body>
                 </>
@@ -160,7 +167,11 @@ const UserMenu = () => {
                   <Card.Title>{recipe.title}</Card.Title>
                     <div className='d-flex justify-content-between'>
                       <span>{recipe.duration}</span>
-                      <span>Details</span>
+                      <Button onClick={() => setShowRecipe(true)}>Details</Button>
+                      <RecipeModal
+                        id={recipe._id}
+                        show={showRecipe}
+                        hide={() => setShowRecipe(false)} />
                     </div>
                   </Card.Body>
                 </>
@@ -173,4 +184,4 @@ const UserMenu = () => {
   );
 };
 
-export default UserMenu;
+export default Upcoming;
