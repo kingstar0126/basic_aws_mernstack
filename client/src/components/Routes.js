@@ -10,6 +10,7 @@ import Home from './Homepage/Home';
 import UserContext from '../context/UserContext';
 import Upcoming from './User/Upcoming/Upcoming';
 import Menu from './Menu/Menu';
+import Recipe from './Recipe/Recipe';
 
 import PublicLayoutRoute from './Layouts/Public/PublicLayout';
 import RegisterLayoutRoute from './Layouts/Register/RegisterLayout';
@@ -37,6 +38,7 @@ const Routes = () => {
             <PublicLayoutRoute exact path='/login' component={LogIn} />
             <PublicLayoutRoute exact path='/logout' component={LogOut} />
             <PublicLayoutRoute exact path='/user/upcoming' component={Upcoming} />
+            <PublicLayoutRoute exact path='/recipes/:recipeId' component={Recipe} />
 
             <RegisterLayoutRoute exact path='/signin' component={SignUp} />
             <RegisterLayoutRoute exact path='/billing' component={Billing} />
