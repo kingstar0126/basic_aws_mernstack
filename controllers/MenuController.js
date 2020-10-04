@@ -17,8 +17,8 @@ export function getAllRecipes(req, res) {
  * the request.
  */
 export function getRecipe(req, res) {
-  req.params.id[0] === ':' && req.params.id.slice(1);
-  const recipeId = req.params.id;
+  let recipeId = req.params.id;
+  if (recipeId[0] === ':') recipeId = recipeId.slice(1);
 
   Recipe.findById(recipeId, (err, recipe) => {
     if (err || !recipe) return res.status(404).json({ error: 'Recipe not found' });
