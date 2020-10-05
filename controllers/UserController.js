@@ -104,7 +104,7 @@ export function choosePlan(req, res, next) {
  * Retrieves the user's selected recipes
  */
 export function getSelectedRecipes(req, res) {
-  PlanInstance.findOne({ user: req.user.id }).exec((err, planInstance) => {
+  PlanInstance.findOne({ user: req.user.id }).populate('selectedRecipes').exec((err, planInstance) => {
     if (err) return res.status(400).json({ error: 'Couldn\'t find a plan instance for this user' });
     res.status(200).json(planInstance.selectedRecipes);
   });
