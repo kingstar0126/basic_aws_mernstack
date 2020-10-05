@@ -49,7 +49,7 @@ const Upcoming = ({ history }) => {
         request.json().then((data) => {
           if (data.error) setError(data.error);
           else if (data.length) { // if user has already selected their recipes
-            setSelected(data);
+            setSelected(data.map((val) => val._id));
             setIsSaved(true);
           }
         });
