@@ -33,6 +33,7 @@ const Recipe = ({ id, match, history }) => {
 
   return (
     <Container className='recipe'>
+      {error && <Col xs={12} className='invalid-feedback d-block' role='alert'>{error}</Col>}
       <Row className='recipeDescription py-4'>
         <Col xs={12} lg={6}>
           <Image fluid src={`https://source.unsplash.com/random/500x500/?${recipe.title}`} />
@@ -40,7 +41,7 @@ const Recipe = ({ id, match, history }) => {
         <Col xs={12} lg={6} className='my-4 my-lg-0'>
           <h1>{recipe.title}</h1>
           <h4>With fresh ingredients</h4>
-          <p>This recipe is a combination of simple and flavory, the fresh and high quality ingredients we provide along with this recipe make up for a unforgettable meal. In no time you will have cooked a complete meal that is both simple and tasy. Follow these simple instructions step by step to have the best results.</p>
+          <p>This recipe is a combination of simple and flavory, the fresh and high quality ingredients we provide along with this recipe make up for an unforgettable meal. In no time you will have cooked a complete meal that is both simple and tasy. Follow these simple instructions step by step to have the best results.</p>
           <div>
             <div>
               <svg xmlns='http://www.w3.org/2000/svg' height='25' width='25' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
