@@ -1,0 +1,27 @@
+/** -- ThisWeek styling -- **/
+
+.currentList {
+    display: flex;
+    flex-direction: row;
+    padding: 0;
+    justify-content: center;
+}
+
+.currentList li {
+    list-style: none;
+    padding: 1rem;
+}
+
+.infoCarousel img {
+    object-fit: cover;
+}
+
+.carousel-caption {
+    background: rgba(0, 0, 0, 0.61);
+}
+
+.weekInfo {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+}
