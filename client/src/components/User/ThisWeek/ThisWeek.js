@@ -13,11 +13,13 @@ import carousel1 from '../../../assets/carousel_1.jpg';
 import carousel2 from '../../../assets/carousel_2.jpg';
 import carousel3 from '../../../assets/carousel_3.jpg';
 
+/** Displays a carousel and the user's selected recipes */
 const ThisWeek = ({ history }) => {
   const [recipes, setRecipes] = useState({});
   const [error, setError] = useState('');
   const deliveryDate = new Date(Date.now() + (7 * 24 * 60 * 60 * 1000));
 
+  /** Calls API to get a user's selected recipes */
   useEffect(() => {
     const request = {
       method: 'GET',
