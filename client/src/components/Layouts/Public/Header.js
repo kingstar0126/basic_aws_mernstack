@@ -14,14 +14,14 @@ const Header = () => {
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="navbar">
         <Nav className="mr-auto">
-          {user && <Nav.Link as={Link} eventKey='5' to='/user/upcoming'>Upcoming</Nav.Link>}
           {user && <Nav.Link as={Link} eventKey='6' to='/user/thisWeek'>This Week</Nav.Link>}
+          {user && <Nav.Link as={Link} eventKey='5' to='/user/upcoming'>Upcoming</Nav.Link>}
           <Nav.Link as={Link} eventKey='1' to='/menu'>Explore Menu</Nav.Link>
           <Nav.Link as={Link} eventKey='2' to='/pricing'>Pricing</Nav.Link>
         </Nav>
         {user ? (
           <Nav>
-            <Nav.Link as={Link} eventKey='3' to='/profile'>My Profile</Nav.Link>
+            <Nav.Link as={Link} eventKey='3' to='user/profile'>My Profile</Nav.Link>
             <Nav.Link as={Link} eventKey='4' to='/logout'>Logout</Nav.Link>
           </Nav>
         ) : (
