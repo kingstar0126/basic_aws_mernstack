@@ -3,10 +3,8 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import CardDeck from 'react-bootstrap/CardDeck';
-import Card from 'react-bootstrap/Card';
-import Image from 'react-bootstrap/Image';
-import Button from 'react-bootstrap/Button';
 
+import RecipeCard from '../Recipe/RecipeCard';
 import './menu.css';
 
 const Menu = ({ history }) => {
@@ -85,18 +83,7 @@ const Menu = ({ history }) => {
         <CardDeck as={Row} className='justify-content-center'>
           {error && <Col xs={12} className='invalid-feedback d-block' role='alert'>{error}</Col>}
           {menu.map((recipe) => (
-            <Col xs={12} md={8} lg={6} xl={4} className='cardWrapper p-lg-0' key={`col-${recipe.name}`}>
-              <Card key={recipe.title} id={recipe._id}>
-                <Image fluid src={`https://source.unsplash.com/random/358x300/?${recipe.title}`} />
-                    <Card.Body>
-                    <Card.Title>{recipe.title}</Card.Title>
-                      <div className='d-flex justify-content-between'>
-                        <span>{recipe.duration}</span>
-                        <Button onClick={() => history.push(`/recipes/:${recipe._id}`)}>Details</Button>
-                      </div>
-                    </Card.Body>
-              </Card>
-            </Col>
+            <RecipeCard recipe={recipe} history={history} />
           ))}
         </CardDeck>
       </Container>
