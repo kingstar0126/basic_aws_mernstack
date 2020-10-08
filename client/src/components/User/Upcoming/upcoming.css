@@ -1,11 +1,8 @@
 /** -- Upcoming styling -- **/
 
-.cardWrapper {
-    margin-bottom: 2rem !important;
-}
-
 .userMenu .card {
     position: relative;
+    border: 2px solid #a9a8a6;
 }
 
 .userMenu .selected {

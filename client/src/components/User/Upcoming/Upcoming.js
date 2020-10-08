@@ -86,11 +86,12 @@ const Upcoming = ({ history }) => {
   };
 
   /** Dynamically displays details about the recipe selection process */
-  const displayAmount = () => {
+  const DisplayAmount = () => {
     const deliveryDate = new Date(Date.now() + (7 * 24 * 60 * 60 * 1000));
+
     return (
       <>
-        <div className='d-flex justify-content-between my-2'>
+        <div className='weekInfo'>
           <div className='d-flex flex-column'>
             <span>Arriving</span>
             <span>
@@ -106,8 +107,8 @@ const Upcoming = ({ history }) => {
         {!isSaved && (
           <div className='suggestion'>
             {selected.length === recipesNum
-              ? <div>Good choices! now click on the save button</div>
-              : <div>Add or remove recipes and click on save when you are ready</div>
+              ? <div>Good choices! Hit save when you are ready</div>
+              : <div>Add or remove the recipes you want</div>
             }
             <div>Selected recipes: {selected.length}/{recipesNum}</div>
           </div>
@@ -119,7 +120,7 @@ const Upcoming = ({ history }) => {
   return (
     <Container className='my-5 userMenu p-lg-0'>
       <h1 className='m-2 mx-md-auto'>Select Upcoming Orders</h1>
-      {displayAmount()}
+      <DisplayAmount />
       <CardDeck as={Row} className='justify-content-center'>
         {error && <Col xs={12} className='invalid-feedback d-block' role='alert'>{error}</Col>}
         {menu.map((recipe) => (
@@ -130,20 +131,25 @@ const Upcoming = ({ history }) => {
                 <>
                   <div className='d-flex justify-content-between selectedBtnDiv'>
                     <span className='checkmark'>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="white" viewBox="0 0 24 24" stroke="green">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      <svg xmlns='http://www.w3.org/2000/svg' width='40' height='40' fill='white' viewBox='0 0 24 24' stroke='green'>
+                        <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z' />
                       </svg>
                     </span>
                     <Button onClick={() => unselectCard(recipe._id)} disabled={isSaved} className='unselectBtn'>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="white" viewBox="0 0 24 24" stroke="red">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      <svg xmlns='http://www.w3.org/2000/svg' width='40' height='40' fill='white' viewBox='0 0 24 24' stroke={isSaved ? 'gray' : 'red'}>
+                        <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z' />
                       </svg>
                     </Button>
                   </div>
                   <Card.Body>
                   <Card.Title>{recipe.title}</Card.Title>
                     <div className='d-flex justify-content-between'>
-                      <span>{recipe.duration}</span>
+                      <span>
+                        <svg xmlns='http://www.w3.org/2000/svg' width='25' height='25' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+                          <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z' />
+                        </svg>
+                        {recipe.duration}
+                      </span>
                       <Button onClick={() => setShowRecipe(true)}>Details</Button>
                       <RecipeModal
                         id={recipe._id}
@@ -157,8 +163,8 @@ const Upcoming = ({ history }) => {
                   {
                     selected.length !== recipesNum && (
                       <Button key={recipe._id} onClick={(e) => selectCard(recipe._id)} className='selectBtn'>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="white" viewBox="0 0 24 24" stroke="green">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        <svg xmlns='http://www.w3.org/2000/svg' width='40' height='40' fill='white' viewBox='0 0 24 24' stroke='green'>
+                          <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z' />
                         </svg>
                       </Button>
                     )
@@ -166,7 +172,12 @@ const Upcoming = ({ history }) => {
                   <Card.Body>
                   <Card.Title>{recipe.title}</Card.Title>
                     <div className='d-flex justify-content-between'>
-                      <span>{recipe.duration}</span>
+                      <span>
+                        <svg xmlns='http://www.w3.org/2000/svg' width='25' height='25' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+                          <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z' />
+                        </svg>
+                        {recipe.duration}
+                      </span>
                       <Button onClick={() => setShowRecipe(true)}>Details</Button>
                       <RecipeModal
                         id={recipe._id}
