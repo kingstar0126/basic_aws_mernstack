@@ -6,6 +6,8 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Spinner from 'react-bootstrap/Spinner';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Popover from 'react-bootstrap/Popover';
 
 import ToPay from './ToPay';
 import './Billing.css';
@@ -13,8 +15,8 @@ import './Billing.css';
 /** Gets the user's delivery information */
 const Billing = ({ history }) => {
   const [formState, setFormState] = useState({
-    address: '',
-    phone: '',
+    address: '77 Awesome Street',
+    phone: '(123)123-4567',
     city: '',
     state: '',
     zip: '',
@@ -98,7 +100,7 @@ const Billing = ({ history }) => {
 
   return (
     <Container className='my-5 billingForm'>
-      {ToPay()}
+      <ToPay history={history} />
       <h2 className='my-3'>Your Delivery Information</h2>
       <Form onSubmit={handleBilling}>
         <Form.Row>
@@ -126,18 +128,18 @@ const Billing = ({ history }) => {
           </Form.Group>
           <Form.Group as={Col} xs='auto' md='3'>
             <Form.Label>State</Form.Label>
-            <Form.Control name='state' as="select" onChange={handleChange} >
+            <Form.Control name='state' as='select' onChange={handleChange} >
               <option>Choose...</option>
-              <option value="AZ">Arizona</option>
-              <option value="CA">California</option>
-              <option value="CT">Connecticut</option>
-              <option value="FL">Florida</option>
-              <option value="NV">Nevada</option>
-              <option value="NM">New Mexico</option>
-              <option value="NY">New York</option>
-              <option value="OR">Oregon</option>
-              <option value="TX">Texas</option>
-              <option value="WA">Washington</option>
+              <option value='AZ'>Arizona</option>
+              <option value='CA'>California</option>
+              <option value='CT'>Connecticut</option>
+              <option value='FL'>Florida</option>
+              <option value='NV'>Nevada</option>
+              <option value='NM'>New Mexico</option>
+              <option value='NY'>New York</option>
+              <option value='OR'>Oregon</option>
+              <option value='TX'>Texas</option>
+              <option value='WA'>Washington</option>
             </Form.Control>
           </Form.Group>
           <Form.Group as={Col} xs='auto' md='3'>
@@ -146,7 +148,17 @@ const Billing = ({ history }) => {
           </Form.Group>
           <Form.Group as={Col} xs='12'>
             <Form.Label>Card details</Form.Label>
-            <CardElement id='cardElement' onChange={handleCardChange} />
+            <OverlayTrigger
+              placement='bottom'
+              trigger={['hover', 'focus', 'click']}
+              delay={{ show: 250, hide: 30000 }}
+              overlay={
+                <Popover>
+                  <Popover.Content>Type: 4242 4242 4242 4242</Popover.Content>
+                </Popover>
+              }
+            ><CardElement id='cardElement' onChange={handleCardChange} />
+            </OverlayTrigger>
           </Form.Group>
         </Form.Row>
         {error && (
@@ -157,7 +169,7 @@ const Billing = ({ history }) => {
         <Button variant='primary' type='submit' disabled={loading}>Confirm and Pay</Button>
         {loading
           && <Spinner animation='border' role='status' size='sm' className='ml-2'>
-               <span className="sr-only">Loading...</span>
+               <span className='sr-only'>Loading...</span>
              </Spinner>}
       </Form>
     </Container>
