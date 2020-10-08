@@ -1,4 +1,13 @@
 /** -- Recipe styling -- **/
+.cardWrapper {
+    margin-bottom: 2rem !important;
+    display: flex;
+    align-items: stretch;
+}
+
+.cardWrapper svg {
+    margin-right: 7px;
+}
 
 .recipeDescription {
     border-bottom: 0.5px solid gray;
@@ -40,8 +49,7 @@
     margin: 9px;
 }
 
-/** large screens **/
-
+/** Recipe large screens **/
 @media only screen and (min-width: 992px) {
     .ingredientItems {
         columns: 2;
