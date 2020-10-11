@@ -87,6 +87,7 @@ export function choosePlan(req, res, next) {
     plan: req.body.plan._id,
     recipesPerWeek: req.body.recipesPerWeek,
     totalPrice: price,
+    selectedRecipes: [] 
   };
   PlanInstance.findOneAndUpdate({ user: req.user.id }, newData, { new: true, upsert: true })
     .populate('plan').exec((err, instance) => {
