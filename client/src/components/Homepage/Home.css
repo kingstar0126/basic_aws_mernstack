@@ -1,6 +1,241 @@
 /* Home */
 .homeHeader {
-  background-image: url('../../assets/Header.jpg');
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  background-image: url('../../assets/header1.jpg');
   background-size: cover;
-  height: 40vh;
+  height: 35rem;
+  color: #fafafa;
+}
+
+.homeHeader h1 {
+  font-size: var(--font-size-sub-title) !important;
+  width: 80%;
+  text-align: center;
+  font-weight: bold;
+}
+
+.homeHeader .btn {
+  margin: 2rem 0 !important;
+  font-weight: bold !important;
+}
+
+@media only screen and (min-width: 768px) {
+  .homeHeader {
+    height: 35rem;
+  }
+
+  .homeHeader h1 {
+    font-size: var(--font-size-title) !important;
+    width: 75%;
+  }
+}
+
+/* homeHeader large screens */
+@media only screen and (min-width: 992px) {
+  .homeHeader {
+    height: 42rem;
+  }
+  .homeHeader h1 {
+    font-size: var(--font-size-main-title) !important;
+    width: 61%;
+  }
+}
+
+/* Why Us container */
+.whyUsItem {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.listTitle {
+ font-weight: bold;
+}
+
+.whyUsItem p + p {
+  color: var(--text-color-light);
+  font-weight: var(--font-weight-light);
+}
+
+.whyUsItem img, .innerBox img {
+  margin-bottom: 2.5rem;
+}
+
+/* Box container */
+
+.boxContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url('../../assets/masala-4096891_1920.jpg');
+  padding: 0;
+}
+
+.innerBox {
+  background-color: #fafafa;
+  text-align: center;
+  margin: 1.5rem;
+}
+
+.boxItem p + p{
+  width: 75%;
+  color: var(--text-color-light);
+  font-weight: var(--font-weight-light);
+}
+
+.boxItem {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+@media only screen and (min-width: 576px) {
+  .innerBox {
+    padding: 2.5rem 0rem;
+  }
+}
+
+/* Box container middle screens */
+@media only screen and (min-width: 768px) {
+  .boxContainer {
+    padding: 2rem 0;
+  }
+  .innerBox {
+    padding: 2.5rem 0rem;
+    width: 80% !important;
+  }
+}
+
+/* Box container large screens */
+@media only screen and (min-width: 992px) {
+  .innerBox {
+    width: 65% !important;
+  }
+}
+
+/** Steps **/
+.steps {
+  background-color: #58681f;
+  color: #fafafa;
+}
+
+.stepsBg {
+  background-image: url('../../assets/steps.jpg');
+  background-size: cover;
+  background-repeat: repeat-x;    
+  height: 18rem;
+}
+
+.stepsSteps {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin: 2rem 0;
+}
+
+.steps ul {
+  width: 18rem;
+  margin: 0;
+}
+
+.steps ul li {
+  list-style-type: decimal;
+  font-weight: var(--font-weight-regular);
+}
+
+.steps .btn {
+  margin-top: 1rem;
+}
+
+/* steps container middle screens */
+@media only screen and (min-width: 768px) {
+  .stepsBg {
+    height: 32rem;
+  }
+}
+
+/* steps container large screens */
+@media only screen and (min-width: 992px) {
+  .stepsBg {
+    height: 31rem;
+  }
+
+  .steps ul li {
+    font-size: larger;
+  }
+}
+
+
+/** Start Now container **/
+.startNow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-self: center;
+  margin: 3.5rem;
+}
+
+.startNow .row {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.startNow h2 {
+  margin: 1rem 0;
+}
+
+.startNow p {
+  text-align: center;
+  color: var(--text-color-light);
+}
+
+/** Options container **/
+.options {
+  padding: 3rem 0 0 0;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.options p {
+  text-align: center;
+  width: 75%;
+}
+
+.options .col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+}
+
+.options img {
+  margin: 5px;
+  width: 100%;
+  height: 100%;
+}
+
+/* steps container large screens */
+@media only screen and (min-width: 992px) {
+  .options .row {
+    width: 60rem;
+  }
+
+  .options p {
+    width: 50%;
+  }
 }
