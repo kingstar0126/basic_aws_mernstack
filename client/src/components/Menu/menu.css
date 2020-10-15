@@ -1,22 +1,74 @@
 /** -- Menu component styling -- **/
 
+.planSection {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-primary);
+    color: var(--text-color-white);
+    padding: 2rem 2rem 0 2rem;
+}
+
+.descriptionSection {
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+    background: var(--color-secondary);
+    color: var(--color-white);
+    margin-bottom: 2rem;
+}
+
+.planDescription {
+    width: 100%;
+    text-align: center;
+}
+
 .plansFilter {
     display: flex;
     flex-direction: row;
     padding: 0;
-    margin: 0;
+    margin: 1rem;
     width: 100%;
     justify-content: center;
+    flex-wrap: wrap;
 }
 
 .planItem {
     text-decoration: none;
     text-align: center;
     list-style: none;
-    margin: 1rem;
+    margin: .4rem .6rem;
     cursor: pointer;
+    transition: ease-in .3s;
+    border-bottom: 3px solid var(--color-white);
+}
+
+.planItem span {
+    font-weight: var(--font-weight-light);
 }
 
 .planItem.active {
-    border-bottom: 2px solid black;
+    border-color: var(--color-secondary);
+    color: var(--color-secondary);
+}
+
+.planItem.active span {
+    font-weight: var(--font-weight-reg);
+}
+
+@media only screen and (min-width: 992px) {
+    .planDescription {
+        width: 37rem;
+    }
+
+    .planItem {
+        margin: 1rem;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .planDescription {
+        width: 31rem;
+    }
 }

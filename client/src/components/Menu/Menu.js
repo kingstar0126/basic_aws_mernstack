@@ -61,11 +61,11 @@ const Menu = ({ history }) => {
   };
 
   return (
-    <Container className='my-5'>
-      <header>
-        <h1 className='text-center'>Explore Our Menus</h1>
-      </header>
-      <Row className='d-flex justify-content-center mb-3'>
+    <Container fluid='md' className='mb-5'>
+      <Container className='planSection'>
+        <header>
+          <h1 className='text-center'>Explore Our Menus</h1>
+        </header>
         <ul className='plansFilter'>
           {plans.map((plan) => (
             <li
@@ -77,13 +77,15 @@ const Menu = ({ history }) => {
             </li>
           ))}
         </ul>
-        <Col className='text-center mb-2' xs={12} md={6}>{currPlan && currPlan.description}</Col>
-      </Row>
-      <Container>
+      </Container>
+      <Container className='descriptionSection'>
+        <div className='planDescription' xs={12} md={6}>{currPlan && currPlan.description}</div>
+      </Container>
+      <Container className='cardsSection'>
         <CardDeck as={Row} className='justify-content-center'>
           {error && <Col xs={12} className='invalid-feedback d-block' role='alert'>{error}</Col>}
-          {menu.map((recipe) => (
-            <RecipeCard recipe={recipe} history={history} />
+          {menu.map((recipe, idx) => (
+            <RecipeCard key={idx} recipe={recipe} history={history} />
           ))}
         </CardDeck>
       </Container>
