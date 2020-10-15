@@ -38,7 +38,7 @@ const StartNow = ({ images, history }) => (
       <h2>Register Today</h2>
       <strong>Choose the plan that best suits you</strong>
       <p>You can change and cancel any time you want</p>
-      <Button onClick={() => history.push('/signin')}>Get Started</Button>
+      <Button variant='secondary' onClick={() => history.push('/signin')}>Get Started</Button>
     </Row>
   </Container>
 );
@@ -58,7 +58,7 @@ const Steps = ({ images, history }) => (
           <li>Unpack your box</li>
           <li>Cook and enjoy</li>
         </ul>
-        <Button variant='secondary' onClick={() => history.push('/signin')}>Start Now</Button>
+        <Button onClick={() => history.push('/signin')}>Start Now</Button>
       </Col>
     </Row>
   </Container>

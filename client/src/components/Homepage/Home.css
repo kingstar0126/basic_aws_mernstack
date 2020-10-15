@@ -7,7 +7,7 @@
   background-image: url('../../assets/header1.jpg');
   background-size: cover;
   height: 35rem;
-  color: #fafafa;
+  color: var(--text-color-white);
 }
 
 .homeHeader h1 {
@@ -28,6 +28,7 @@
   }
 
   .homeHeader h1 {
+    margin-top: 6rem !important;
     font-size: var(--font-size-title) !important;
     width: 75%;
   }
@@ -36,9 +37,10 @@
 /* homeHeader large screens */
 @media only screen and (min-width: 992px) {
   .homeHeader {
-    height: 42rem;
+    height: 45rem;
   }
   .homeHeader h1 {
+    margin-top: 6rem !important;
     font-size: var(--font-size-main-title) !important;
     width: 61%;
   }
@@ -59,7 +61,7 @@
 }
 
 .whyUsItem p + p {
-  color: var(--text-color-light);
+  color: var(--text-color-gray);
   font-weight: var(--font-weight-light);
 }
 
@@ -78,14 +80,14 @@
 }
 
 .innerBox {
-  background-color: #fafafa;
+  background-color: var(--text-color-white);
   text-align: center;
   margin: 1.5rem;
 }
 
 .boxItem p + p{
   width: 75%;
-  color: var(--text-color-light);
+  color: var(--text-color-gray);
   font-weight: var(--font-weight-light);
 }
 
@@ -124,8 +126,8 @@
 
 /** Steps **/
 .steps {
-  background-color: #58681f;
-  color: #fafafa;
+  background-color: var(--color-tertiary);
+  color: var(--text-color-white);
 }
 
 .stepsBg {
@@ -198,7 +200,7 @@
 
 .startNow p {
   text-align: center;
-  color: var(--text-color-light);
+  color: var(--text-color-gray);
 }
 
 /** Options container **/
