@@ -61,7 +61,7 @@ const Menu = ({ history }) => {
   };
 
   return (
-    <Container fluid='md' className='mb-5'>
+    <Container fluid='md' className='my-5'>
       <Container className='planSection'>
         <header>
           <h1 className='text-center'>Explore Our Menus</h1>
