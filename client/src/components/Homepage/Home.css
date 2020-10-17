@@ -179,19 +179,12 @@
 
 
 /** Start Now container **/
-.startNow {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-self: center;
-  margin: 3.5rem;
-}
-
 .startNow .row {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin: 2rem 0;
 }
 
 .startNow h2 {
@@ -205,7 +198,6 @@
 
 /** Options container **/
 .options {
-  padding: 3rem 0 0 0;
   display: flex;
   justify-content: center;
   flex-direction: column;

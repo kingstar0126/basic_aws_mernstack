@@ -32,7 +32,7 @@ const Options = ({ images, history }) => (
 
 /** Final start now container */
 const StartNow = ({ images, history }) => (
-  <Container className='startNow'>
+  <Container fluid className='startNow'>
     <Row>
       <Image src={images('./Cutlery.svg')} width='100' height='100' />
       <h2>Register Today</h2>
