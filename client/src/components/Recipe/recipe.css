@@ -1,11 +1,36 @@
 /** -- Recipe styling -- **/
-.cardWrapper {
+
+/** RecipeCard **/
+.cardMenu {
     margin-bottom: 2rem !important;
     display: flex;
     align-items: stretch;
+    justify-content: center;
+    max-width: 24rem !important;
+    padding: 0 !important;
 }
 
-.cardWrapper svg {
+.cardMenu .btn-secondary {
+    padding: .5rem 2rem !important;
+    font-size: var(--font-size-small) !important;
+}
+
+.cardMenu .card-body {
+    background-color: var(--color-white) !important;
+    padding: 1.5rem 1.5rem 0 1.5rem;
+}
+
+.cardMenu .card-body .card-title{
+    font-size: larger;
+    font-weight: var(--font-weight-bold);
+}
+
+.cardMenu .card-footer {
+    background-color: var(--color-white) !important;
+    border: none !important;
+}
+
+.cardMenu svg {
     margin-right: 7px;
 }
 
@@ -17,18 +42,27 @@
     margin: 1rem;
 }
 
+/** Recipe **/
+
+.recipe .btn {
+    font-size: var(--font-size-small) !important;
+    padding: .5rem 2rem !important;
+}
+
+.recipe h4 {
+    color: var(--text-color-gray);
+    margin: 0;
+}
+
 .recipeDiet {
-    background-color: greenyellow;
+    background-color: var(--color-secondary);
     border-radius: 20px;
-    padding: 5px;
+    padding: 8px;
+    color: var(--color-white);
 }
 
 .ingredients {
     border-bottom: 0.5px solid gray;
-}
-
-.ingredientItems ul, .steps ul {
-    padding: 0;
 }
 
 .ingredientItems li {
@@ -40,12 +74,12 @@
     margin: 5px;
 }
 
-.steps li {
+.instructions li {
     list-style: none;
     padding: 0.5rem;
 }
 
-.steps li svg {
+.instructions li svg {
     margin: 9px;
 }
 
