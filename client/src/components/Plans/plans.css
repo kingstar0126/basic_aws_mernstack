@@ -1,0 +1,126 @@
+/** -- Plans styling -- **/
+
+.pricing header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.pricing .card-deck {
+    width: 100%;
+    margin: auto;
+}
+
+.pricing .btn {
+    padding: .5rem 1rem !important;
+    font-size: var(--font-size-small) !important;
+}
+
+.pricing .btn.btn-primary:hover {
+    background-color: var(--color-secondary) !important;
+    color: var(--color-white) !important;
+    cursor: pointer;
+}
+
+.pricing .btn-primary {
+    background-color: var(--color-white) !important;
+    color: var(--color-secondary) !important;
+    border-color: var(--color-secondary) !important;
+}
+
+.pricing .btn-primary.active {
+    background-color: var(--color-secondary) !important;
+    color: var(--color-white) !important;
+}
+
+.pricing .btn-secondary {
+    background-color: var(--color-tertiary) !important;
+    border: var(--color-tertiary) !important;
+}
+
+.pricing .cardWrapper {
+    display: flex;
+    justify-content: center;
+    margin: 1.5rem 0;
+    flex-wrap: wrap;
+    padding: 0;
+}
+
+.pricing .card {
+    width: 100%;
+}
+
+.pricing .card-body {
+    background-color: var(--color-white) !important;
+}
+
+.pricing .card-footer {
+    background: #e1ad2461;
+    border: none !important;
+}
+
+.pricing .card-header {
+    background-color: var(--color-secondary) !important;
+    color: var(--text-color-white) !important;
+    border-color: var(--color-tertiary) !important;
+}
+
+.pricing .card-header .card-img {
+    width: 100%;
+    margin-top: 1.5rem;
+}
+
+.pricing .card .card-title {
+    font-weight: var(--font-weight-bold);
+    font-size: var(--font-size-sub-title);
+    text-align: center;
+    margin: 1.5rem 0 .5rem 0;
+}
+
+.pricing .usrPlan {
+    padding: 0.5rem;
+    text-align: center;
+    background-color: var(--color-secondary) !important;
+    color: var(--color-white) !important;
+}
+
+.pricing .usrRecipesNum {
+    background-color: var(--color-secondary) !important;
+    color: var(--color-white) !important;
+}
+
+.pricing .planPrices {
+    display: flex;
+    justify-content: space-between;
+}
+
+.pricing .planPrices .totalPrice {
+    font-weight: var(--font-weight-bold);
+}
+
+.pricing .planPrices span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+@media only screen and (min-width: 768px) {
+    .pricing header div {
+        width: 40rem;
+    }
+
+    .pricing .card-deck {
+        width: 80%;
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .pricing .card-deck {
+        width: 74%;
+    }
+}
