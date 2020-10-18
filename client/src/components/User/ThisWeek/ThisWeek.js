@@ -5,8 +5,10 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Carousel from 'react-bootstrap/Carousel';
 import CardDeck from 'react-bootstrap/CardDeck';
+import Image from 'react-bootstrap/Image';
 
 import RecipeCard from '../../Recipe/RecipeCard';
+import Tea from '../../../assets/Tea.svg';
 import carousel1 from '../../../assets/carousel_1.jpg';
 import carousel2 from '../../../assets/carousel_2.jpg';
 import carousel3 from '../../../assets/carousel_3.jpg';
@@ -80,13 +82,14 @@ const ThisWeek = ({ history }) => {
   );
 
   return (
-    <Container className='my-4'>
+    <Container className='my-4 thisWeek'>
       <h1 className='my-2'>This Week's Delivery</h1>
       <InfoCarousel />
       <Row className='my-5'>
         <Col>
           {!recipes.length && (
             <Col className='emptyWeek mx-auto'>
+              <Image src={Tea} width='70' height='70' />
               <p>You currently have no recipes coming your way. Go ahead and click the button to select the recipes you want delivered for this week</p>
               <Button onClick={() => history.push('/user/upcoming')}>Choose Upcoming Recipes</Button>
             </Col>
