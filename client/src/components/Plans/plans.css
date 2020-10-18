@@ -17,7 +17,7 @@
 
 .pricing .btn {
     padding: .5rem 1rem !important;
-    font-size: var(--font-size-small) !important;
+    font-size: var(--font-size) !important;
 }
 
 .pricing .btn.btn-primary:hover {
