@@ -18,6 +18,7 @@ const Upcoming = ({ history }) => {
   const [selected, setSelected] = useState([]);
   const [isSaved, setIsSaved] = useState(false);
   const [showRecipe, setShowRecipe] = useState(false);
+  const [clickedRecipe, setClickedRecipe] = useState('');
 
   /** Calls API for the menu of the user's plan */
   useEffect(() => {
@@ -85,6 +86,12 @@ const Upcoming = ({ history }) => {
     setSelected(selected.filter((val) => val !== recipeId));
   };
 
+  /** Set the clicked recipe that is passed to the modal and display it once the user clicks on details btn */
+  const handleDetail = (recipeId) => {
+    setClickedRecipe(recipeId);
+    setShowRecipe(true);
+  };
+
   /** Dynamically displays details about the recipe selection process */
   const DisplayAmount = () => {
     const deliveryDate = new Date(Date.now() + (7 * 24 * 60 * 60 * 1000));
@@ -123,12 +130,11 @@ const Upcoming = ({ history }) => {
       <DisplayAmount />
       <CardDeck as={Row} className='justify-content-center'>
         {error && <Col xs={12} className='invalid-feedback d-block' role='alert'>{error}</Col>}
-        {menu.map((recipe) => (
-          <Col xs={12} md={8} lg={6} xl={4} className='cardWrapper p-lg-0'>
+        {menu.map((recipe, idx) => (
+          <Col xs={12} md={6} lg={6} xl={4} className='cardWrapper p-lg-0'>
             <Card key={recipe.title} id={recipe._id} className={selected.includes(recipe._id) && 'selected'}>
-              <Image fluid src={`https://source.unsplash.com/random/358x300/?${recipe.title}`} />
+              <Image fluid src={`https://source.unsplash.com/collection/58658209/390x300/?sig=${idx}`} />
               {selected.includes(recipe._id) ? (
-                <>
                   <div className='d-flex justify-content-between selectedBtnDiv'>
                     <span className='checkmark'>
                       <svg xmlns='http://www.w3.org/2000/svg' width='40' height='40' fill='white' viewBox='0 0 24 24' stroke='green'>
@@ -141,53 +147,34 @@ const Upcoming = ({ history }) => {
                       </svg>
                     </Button>
                   </div>
-                  <Card.Body>
-                  <Card.Title>{recipe.title}</Card.Title>
-                    <div className='d-flex justify-content-between'>
-                      <span>
-                        <svg xmlns='http://www.w3.org/2000/svg' width='25' height='25' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
-                          <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z' />
-                        </svg>
-                        {recipe.duration}
-                      </span>
-                      <Button onClick={() => setShowRecipe(true)}>Details</Button>
-                      <RecipeModal
-                        id={recipe._id}
-                        show={showRecipe}
-                        hide={() => setShowRecipe(false)} />
-                    </div>
-                  </Card.Body>
-                </>
               ) : (
-                <>
-                  {
-                    selected.length !== recipesNum && (
-                      <Button key={recipe._id} onClick={(e) => selectCard(recipe._id)} className='selectBtn'>
-                        <svg xmlns='http://www.w3.org/2000/svg' width='40' height='40' fill='white' viewBox='0 0 24 24' stroke='green'>
-                          <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z' />
-                        </svg>
-                      </Button>
-                    )
-                  }
-                  <Card.Body>
-                  <Card.Title>{recipe.title}</Card.Title>
-                    <div className='d-flex justify-content-between'>
-                      <span>
-                        <svg xmlns='http://www.w3.org/2000/svg' width='25' height='25' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
-                          <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z' />
-                        </svg>
-                        {recipe.duration}
-                      </span>
-                      <Button onClick={() => setShowRecipe(true)}>Details</Button>
-                      <RecipeModal
-                        id={recipe._id}
-                        show={showRecipe}
-                        hide={() => setShowRecipe(false)} />
-                    </div>
-                  </Card.Body>
-                </>
+                selected.length !== recipesNum && (
+                  <Button key={recipe._id} onClick={(e) => selectCard(recipe._id)} className='selectBtn'>
+                    <svg xmlns='http://www.w3.org/2000/svg' width='40' height='40' fill='white' viewBox='0 0 24 24' stroke='green'>
+                      <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z' />
+                    </svg>
+                  </Button>
+                )
               )}
+                <Card.Body>
+                  <Card.Title>{recipe.title}</Card.Title>
+                </Card.Body>
+                <Card.Footer>
+                  <div className='d-flex justify-content-between'>
+                    <span>
+                      <svg xmlns='http://www.w3.org/2000/svg' width='25' height='25' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+                        <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z' />
+                      </svg>
+                      {recipe.duration}
+                    </span>
+                    <Button onClick={() => handleDetail(recipe._id)}>Details</Button>
+                  </div>
+                </Card.Footer>
             </Card>
+            <RecipeModal
+              id={clickedRecipe}
+              show={showRecipe}
+              hide={() => setShowRecipe(false)} />
           </Col>
         ))}
         </CardDeck>
