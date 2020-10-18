@@ -139,7 +139,7 @@ const Home = ({ history }) => {
   });
 
   return (
-    <>
+    <div className='home'>
       <Container fluid className='homeHeader'>
         <h1>Welcome to Daily Recipe, where the best meals are delivered to your door</h1>
         <Button variant='secondary' size='lg' className='mx-auto' onClick={() => history.push('/signin')}>Get Started</Button>
@@ -149,7 +149,7 @@ const Home = ({ history }) => {
       <Options images={images} history={history} />
       <Steps images={images} history={history}/>
       <StartNow images={images} history={history} />
-    </>
+    </div>
   );
 };
 
