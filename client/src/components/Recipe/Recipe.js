@@ -41,7 +41,7 @@ const Recipe = ({ id, match, history }) => {
         <Col xs={12} lg={6} className='d-flex align-items-center'>
           <Image fluid src={`https://source.unsplash.com/collection/58658209/540x496/?sig=${randNum(40)}`} />
         </Col>
-        <Col xs={12} lg={6} className='my-4 my-lg-0 p-5'>
+        <Col xs={12} lg={6} className='recipeDetails my-4 my-lg-0 p-lg-5'>
           <h1>{recipe.title}</h1>
           <h4>At Daily Recipe</h4>
           <p>This recipe is a combination of simple and flavory, the fresh and high quality ingredients we provide along with this recipe make up for an unforgettable meal. In no time you will have cooked a complete meal that is both simple and tasy. Follow these simple instructions step by step to have the best results.</p>

@@ -4,15 +4,7 @@
 .cardMenu {
     margin-bottom: 2rem !important;
     display: flex;
-    align-items: stretch;
-    justify-content: center;
     max-width: 24rem !important;
-    padding: 0 !important;
-}
-
-.cardMenu .btn-secondary {
-    padding: .5rem 2rem !important;
-    font-size: var(--font-size-small) !important;
 }
 
 .cardMenu .card-body {
@@ -44,14 +36,13 @@
 
 /** Recipe **/
 
-.recipe .btn {
-    font-size: var(--font-size-small) !important;
-    padding: .5rem 2rem !important;
-}
-
 .recipe h4 {
     color: var(--text-color-gray);
     margin: 0;
+}
+
+.recipe ul {
+    padding: 0;
 }
 
 .recipeDiet {
@@ -92,6 +83,10 @@
     .modal-body > .recipe {
         margin: 0 !important;
     }
+
+    .recipe ul {
+        padding-left: 2rem;
+    }
 }
 
 /** -- RecipeModal styling -- **/
@@ -106,5 +101,9 @@
 .modal-backdrop.show
 {
     opacity: 0.21;
+}
+
+.modal .recipeDetails {
+    padding: 0 .5rem !important;
 }
 
