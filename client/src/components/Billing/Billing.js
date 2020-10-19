@@ -75,7 +75,7 @@ const Billing = ({ history }) => {
             if (payload.error) setError(`Payment failed ${payload.error.message}`);
             else {
               setLoading(false);
-              history.push('/');
+              history.push('/user/thisWeek');
             }
           }
         });
