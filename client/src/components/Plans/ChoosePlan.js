@@ -170,7 +170,7 @@ const ChoosePlan = ({ history }) => {
                 variant='secondary'
                 id={`btn-${plan.name}`}
                 className={usrPlan === plan._id && 'usrPlan'}
-                onClick={error ? history.push('/signin') : () => selectPlan(plan, recipesNum, price[plan.name])}
+                onClick={!usrPlan && error ? history.push('/signin') : () => selectPlan(plan, recipesNum, price[plan.name])}
               >Select</Button>
             </Card>
           </Col>
