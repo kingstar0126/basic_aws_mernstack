@@ -1,13 +1,79 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/** -- Project's Variables -- **/
+:root {
+  --color-primary: #1b494e; 
+  --color-secondary: #E9724B;
+  --color-tertiary: #e1ad24;
+  --color-white: #fafafa;
+
+  --text-color-white: #fafafa;
+  --text-color-gray: #5e5e5e;
+
+  --font-weight-reg: 400;
+  --font-weight-bold: 600;
+  --font-weight-light: 300;
+
+  --font-size: 20px;
+  --font-size-small: 16px;
+  --font-size-title: 50px;
+  --font-size-sub-title: 40px;
+  --font-size-main-title: 64px;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+html {
+  scroll-behavior: smooth;
 }
+
+body {
+  margin: 0;
+  font-family: 'Josefin Sans', sans-serif !important;
+  font-size: var(--font-size) !important;
+  background-color:  var(--color-white) !important;
+}
+
+h1, h2, h3, h4, h5 {
+  font-weight: var(--font-weight-bold) !important;
+}
+
+h1 {
+  font-size: var(--font-size-title) !important;
+}
+
+h2 {
+  font-size: var(--font-size-sub-title) !important;
+}
+
+.btn {
+  border: 3px solid var(--color-primary) !important;
+  border-radius: 0 !important;
+  text-transform: uppercase;
+  transition: all 0.3s !important;
+  padding: .5rem 3rem !important;
+  padding: .5rem 2rem !important;
+  font-size: var(--font-size-small) !important;
+}
+
+.btn-primary {
+  background-color: var(--color-primary) !important;
+  color:  var(--color-white) !important;
+  border-color: var(--color-primary) !important
+}
+
+.btn-primary:hover {
+  background-color:  var(--color-white) !important;
+  border-color: var(--color-primary) !important;
+  color: var(--color-primary) !important;
+}
+
+.btn-secondary {
+  background-color: var(--color-secondary) !important;
+  border-color: var(--color-secondary) !important;
+  color:  var(--color-white) !important;
+}
+
+.btn-secondary:hover {
+  background-color:  var(--color-white) !important;
+  color: var(--color-secondary) !important;
+  border-color: var(--color-secondary) !important;
+}
+
+
