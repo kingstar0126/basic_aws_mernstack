@@ -17,19 +17,37 @@
 }
 
 /* -- ToPay -- */
+
+.orderInfo .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--color-primary) !important;
+    color: var(--text-color-white) !important;
+    border-bottom: 2px solid var(--color-white);
+}
+
+.orderInfo .card-header svg {
+    margin-left: 5px;
+}
+
 .orderInfo .card-body {
     padding: 0;
     margin: 0;
+    background-color: var(--color-secondary) !important;
+    color: var(--text-color-white) !important;
 }
 
 .orderInfo .list-group-item {
     padding: 0.5rem 0.25rem;
     border: none;
+    background-color: var(--color-secondary) !important;
+    color: var(--text-color-white) !important;
 }
 
 @media only screen and (min-width: 768px) {
     .payDetails{
         border-top: none !important;
-        border-left: solid #dfdfdf 0.5px;
+        border-left: solid #dfdfdf 2px;
     }
 }
