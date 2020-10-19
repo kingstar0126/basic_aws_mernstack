@@ -1,0 +1,82 @@
+/**-- Public Header Styling --**/
+.body {
+    min-height: 80vh;
+}
+
+.publicHeader {
+    background-color: var(--text-color-white);
+    border: 1px solid rgba(0,0,0,.125);
+}
+
+.publicHeader img {
+    width: 200px;
+}
+
+.navbar.publicHeader {
+    padding: 0 !important;
+}
+
+.publicHeader .navbar-brand {
+    margin: 0 5px;
+}
+.publicHeader .navbar-brand:hover {
+    background-color: var(--color-white) !important;
+}
+
+.publicHeader .navbar-nav {
+    width: 100% !important;
+}
+
+.publicHeader .loginLinks {
+    display: flex;
+    justify-content: center;
+}
+
+.publicHeader .navbar-nav a {
+    color: #1b494e !important;    
+    transition: color 0.3s ease;
+}
+
+.publicHeader a.nav-link:hover,
+.publicHeader a.nav-link.activeLink {
+    color: var(--text-color-white) !important;
+}
+
+.publicHeader a {
+    position: relative;
+    transition: all .5s;;
+    z-index: 1;
+}
+
+.publicHeader a.nav-link:before { 
+    content: '.';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    width: 100%;
+    height: 1px;
+    color: transparent;
+    background: var(--color-tertiary);
+    visibility: none;
+    opacity: 0;
+    z-index: -1;
+    transition: all .5s;;
+} 
+
+.publicHeader a.nav-link:hover:before,
+.publicHeader a.nav-link.activeLink:before {
+    opacity: 1;
+    visibility: visible;
+    height: 100%;
+    transition: all .5s;;
+}
+
+@media only screen and (min-width: 992px) {
+    .publicHeader img {
+        width: 220px;
+    }
+}
