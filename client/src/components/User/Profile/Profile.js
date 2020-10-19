@@ -80,7 +80,7 @@ const Profile = ({ history }) => {
           </Col>
           <Form.Label column xs='12' md='4'>Total Price</Form.Label>
           <Col xs='8'>
-            <Form.Control plaintext readOnly defaultValue={plan.totalPrice}/>
+            <Form.Control plaintext readOnly defaultValue={`$${plan.totalPrice}`}/>
           </Col>
         </Form.Group>
         <Button onClick={() => history.push('/pricing')}>Change Your Plan</Button>
@@ -147,7 +147,7 @@ const Profile = ({ history }) => {
   );
 
   return (
-    <Container className='my-4 settings'>
+    <Container className='my-5 settings'>
       <h2>Account Settings</h2>
       <Tab.Container defaultActiveKey='plan'>
         <Row className='my-4'>
@@ -164,7 +164,7 @@ const Profile = ({ history }) => {
               </Nav.Item>
             </Nav>
           </Col>
-          <Col md={9}>
+          <Col md={9} className='p-3'>
             <Tab.Content>
               <Tab.Pane eventKey='plan'>
                 {plan.plan && <PlanInfo />}
