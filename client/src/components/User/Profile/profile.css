@@ -32,6 +32,19 @@
     margin-left: 5px;
 }
 
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    background-color: var(--color-tertiary) !important;
+    color: var(--text-color-white) !important;
+}
+
+.settings a.nav-link {
+    color: #212529 !important;
+}
+
+.form-control-plaintext {
+    font-size: var(--font-size) !important;
+}
+
 /** Medium screens */
 @media only screen and (min-width: 992px) {
   .planInfo, .accInfo, .deliveryInfo {
