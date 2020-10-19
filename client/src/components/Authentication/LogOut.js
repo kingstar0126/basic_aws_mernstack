@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Container from 'react-bootstrap/Container';
 import { Link } from 'react-router-dom';
+import Image from 'react-bootstrap/Image';
+
+import Croissant from '../../assets/Croissant.svg';
 import UserContext from '../../context/UserContext';
 
 /** Logs out the user */
@@ -17,7 +20,7 @@ const LogOut = () => {
     fetch('http://localhost:5000/api/auth/logout', request)
       .then((response) => {
         setUser(null);
-        setMsg('You logged out successfully');
+        setMsg('You logged out successfully!');
       })
       .catch((error) => {
         console.log('An error happened', error);
@@ -26,9 +29,10 @@ const LogOut = () => {
   });
 
   return (
-    <Container className='d-flex flex-column justify-content-center align-items-center'>
+    <Container className='d-flex flex-column justify-content-center align-items-center p-5'>
+      <Image src={Croissant} width='80' height='80' />
       <span>{msg}</span>
-      <Link to='/login'>Log in again</Link>
+      <Link className='logoutLink' to='/login'>Log in again</Link>
     </Container>
   );
 };

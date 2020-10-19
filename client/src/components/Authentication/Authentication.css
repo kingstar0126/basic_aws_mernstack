@@ -1,5 +1,10 @@
 /* Styling for Authentication components */
 
+/* -- Log out -- */
+a.logoutLink {
+  color: var(--color-secondary) !important;
+}
+
 /* -- Sign Up -- */
 @media only screen and (min-width: 768px) {
     .formContainer {
