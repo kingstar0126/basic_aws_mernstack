@@ -13,6 +13,12 @@ const Menu = ({ history }) => {
   const [plans, setPlans] = useState([]);
   const [currPlan, setCurrPlan] = useState({});
 
+  /** Updates the selected plan and filters the menu by it */
+  const selectFilter = (planId, name, description) => {
+    filterMenu(planId);
+    setCurrPlan({ name, description });
+  };
+
   /** Calls API to store all the available plans  */
   useEffect(() => {
     const request = {
@@ -33,7 +39,7 @@ const Menu = ({ history }) => {
         console.log('An error happened', error);
         setError(err.toString());
       });
-  }, [error]);
+  }, [error]); // eslint-disable-line react-hooks/exhaustive-deps
 
   /** Calls API to filter the menu by the given planId */
   const filterMenu = (planId) => {
@@ -52,12 +58,6 @@ const Menu = ({ history }) => {
         console.log('An error happened', error);
         setError(err.toString());
       });
-  };
-
-  /** Updates the selected plan and filters the menu by it */
-  const selectFilter = (planId, name, description) => {
-    filterMenu(planId);
-    setCurrPlan({ name, description });
   };
 
   return (
