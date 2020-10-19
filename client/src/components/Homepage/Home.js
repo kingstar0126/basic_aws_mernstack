@@ -141,7 +141,7 @@ const Home = ({ history }) => {
   return (
     <div className='home'>
       <Container fluid className='homeHeader'>
-        <h1>Welcome to Daily Recipe, where the best meals are delivered to your door</h1>
+        <h1>Welcome to Daily Recipe, where we deliver meals and you cook them</h1>
         <Button variant='secondary' size='lg' className='mx-auto' onClick={() => history.push('/signin')}>Get Started</Button>
       </Container>
       <WhyUs images={images} history={history} />
