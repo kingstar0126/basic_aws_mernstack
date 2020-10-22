@@ -36,7 +36,7 @@ const ChoosePlan = ({ history }) => {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     };
-    fetch('http://localhost:5000/api/users/plan', request)
+    fetch(`${process.env.REACT_APP_HOST}/api/users/plan`, request)
       .then((response) => {
         response.json().then((data) => {
           if (data.error) console.log(data.error); // http error
@@ -58,7 +58,7 @@ const ChoosePlan = ({ history }) => {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     };
-    fetch('http://localhost:5000/api/plans', request)
+    fetch(`${process.env.REACT_APP_HOST}/api/plans`, request)
       .then((response) => {
         response.json().then((data) => {
           if (data.error) setError(data.error); // http error
@@ -81,7 +81,7 @@ const ChoosePlan = ({ history }) => {
       },
       body: JSON.stringify({ plan, recipesPerWeek, totalPrice }),
     };
-    fetch('http://localhost:5000/api/users/plan', request)
+    fetch(`${process.env.REACT_APP_HOST}/api/users/plan`, request)
       .then((response) => {
         // http response error
         response.json().then((data) => {
@@ -89,7 +89,7 @@ const ChoosePlan = ({ history }) => {
           else {
             cookies.set('userPlan', // store the plan in a cookie
               data,
-              { expires: new Date(Date.now() + (15 * 60 * 1000)), sameSite: true });
+              { expires: new Date(Date.now() + (15 * 60 * 1000)) });
             usrPlan && location.pathname === '/pricing' ? history.push('/user/upcoming') : history.push('/billing');
           }
         });
