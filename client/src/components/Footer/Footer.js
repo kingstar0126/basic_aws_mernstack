@@ -34,7 +34,7 @@ const Footer = ({ history }) => (
             </a>
           </span>
           <span className='socialIcon'>
-            <a href='https://twitter.com/sofivism'>
+            <a href='https://github.com/Svcg17'>
               <i className='fa fa-github'></i>
             </a>
           </span>
