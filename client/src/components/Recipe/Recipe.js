@@ -1,16 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
 import Button from 'react-bootstrap/Button';
 
+import UserContext from '../../context/UserContext';
 import './recipe.css';
 
 /** Individual recipe component */
 const Recipe = ({ id, match, history }) => {
   const [recipe, setRecipe] = useState({});
   const [error, setError] = useState('');
+  const { user } = useContext(UserContext);
   const recipeId = id || match.params.recipeId;
 
   /** API call to get recipe with the given recipeId */
@@ -66,7 +68,7 @@ const Recipe = ({ id, match, history }) => {
               </svg>
               <span>{recipe.servings} servings</span>
             </div>
-            {match && <Button onClick={() => history.push('/signin')}>Get Started</Button>}
+            {match && !user && <Button onClick={() => history.push('/signin')}>Get Started</Button>}
           </div>
         </Col>
       </Row>
