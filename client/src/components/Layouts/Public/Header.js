@@ -16,7 +16,7 @@ const Header = () => {
   const isActive = (path) => (location.pathname === path ? 'activeLink' : '');
 
   return (
-    <Navbar sticky='top' className='publicHeader' collapseOnSelect expand='md'>
+    <Navbar sticky='top' className='publicHeader' collapseOnSelect expand='lg'>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Brand as={Link} to='/'><Image src={Logo} alt='Daily Recipe Logo' /></Navbar.Brand>
       <Navbar.Collapse id="navbar">
