@@ -16,7 +16,7 @@ function generateToken(user, res) {
     process.env.TOKEN_SECRET,
     { expiresIn: '24h' },
   );
-  res.cookie('token', token, { expires: new Date(Date.now() + 24 * 60 * 60 * 1000), sameSite: true });
+  res.cookie('token', token, { expires: new Date(Date.now() + 24 * 60 * 60 * 1000) });
   res.json({ user, token });
 }
 
