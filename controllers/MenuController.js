@@ -22,7 +22,6 @@ export function getRecipe(req, res) {
 
   Recipe.findById(recipeId, (err, recipe) => {
     if (err || !recipe) return res.status(404).json({ error: 'Recipe not found' });
-    console.log(recipe)
     res.status(200).json(recipe);
   });
 }
