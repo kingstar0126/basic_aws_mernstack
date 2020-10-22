@@ -26,7 +26,7 @@ const SignUp = ({ history }) => {
       headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
       body: JSON.stringify(formState),
     };
-    fetch('http://localhost:5000/api/auth/register', request)
+    fetch(`${process.env.REACT_APP_HOST}/api/auth/register`, request)
       .then((response) => {
         response.json().then((data) => {
           if (data.error) setError(data.error); // http response error

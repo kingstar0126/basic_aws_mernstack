@@ -24,7 +24,7 @@ const LogIn = ({ history }) => {
       body: JSON.stringify(formState),
     };
 
-    fetch('http://localhost:5000/api/auth/login', request)
+    fetch(`${process.env.REACT_APP_HOST}/api/auth/login`, request)
       .then((response) => {
         response.json().then((data) => {
           if (data.error) setError(data.error); // http response error

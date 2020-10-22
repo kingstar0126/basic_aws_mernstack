@@ -61,7 +61,7 @@ const Billing = ({ history }) => {
       },
       body: JSON.stringify(formState),
     };
-    fetch('http://localhost:5000/api/users/delivery', request)
+    fetch(`${process.env.REACT_APP_HOST}/api/users/delivery`, request)
       .then((response) => {
         response.json().then(async (data) => {
           if (data.error) setError(data.error); // http response error

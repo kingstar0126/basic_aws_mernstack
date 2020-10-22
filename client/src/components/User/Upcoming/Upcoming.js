@@ -26,7 +26,7 @@ const Upcoming = ({ history }) => {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     };
-    fetch('http://localhost:5000/api/users/planInstance', request)
+    fetch(`${process.env.REACT_APP_HOST}/api/users/planInstance`, request)
       .then((request) => {
         request.json().then((data) => {
           if (data.error) setError(data.error);
@@ -45,7 +45,7 @@ const Upcoming = ({ history }) => {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     };
-    fetch('http://localhost:5000/api/users/recipes', request)
+    fetch(`${process.env.REACT_APP_HOST}/api/users/recipes`, request)
       .then((request) => {
         request.json().then((data) => {
           if (data.error) setError(data.error);
@@ -66,7 +66,7 @@ const Upcoming = ({ history }) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ selectedRecipes: selected }),
     };
-    fetch('http://localhost:5000/api/users/recipes', request)
+    fetch(`${process.env.REACT_APP_HOST}/api/users/recipes`, request)
       .then((request) => {
         request.json().then((data) => {
           if (data.error) setError(data.error);

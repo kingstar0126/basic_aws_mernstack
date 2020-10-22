@@ -21,7 +21,7 @@ const Profile = ({ history }) => {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     };
-    fetch('http://localhost:5000/api/users/profile', request)
+    fetch(`${process.env.REACT_APP_HOST}/api/users/profile`, request)
       .then((response) => {
         response.json().then((data) => {
           if (data.error) setError(data.error); // http error
@@ -40,7 +40,7 @@ const Profile = ({ history }) => {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     };
-    fetch('http://localhost:5000/api/users/plan', request)
+    fetch(`${process.env.REACT_APP_HOST}/api/users/plan`, request)
       .then((response) => {
         response.json().then((data) => {
           if (data.error) setError(data.error); // http error

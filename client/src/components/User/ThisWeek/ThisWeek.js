@@ -26,7 +26,7 @@ const ThisWeek = ({ history }) => {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     };
-    fetch('http://localhost:5000/api/users/recipes', request)
+    fetch(`${process.env.REACT_APP_HOST}/api/users/recipes`, request)
       .then((request) => {
         request.json().then((data) => {
           if (data.error) setError(data.error);

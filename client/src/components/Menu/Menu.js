@@ -12,6 +12,7 @@ const Menu = ({ history }) => {
   const [error, setError] = useState([]);
   const [plans, setPlans] = useState([]);
   const [currPlan, setCurrPlan] = useState({});
+  const host = process.env.REACT_APP_HOST;
 
   /** Updates the selected plan and filters the menu by it */
   const selectFilter = (planId, name, description) => {
@@ -25,7 +26,7 @@ const Menu = ({ history }) => {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     };
-    fetch('http://localhost:5000/api/plans', request)
+    fetch(`${host}/api/plans`, request)
       .then((response) => {
         response.json().then((data) => {
           if (data.error) setError(data.error); // http error
@@ -47,7 +48,7 @@ const Menu = ({ history }) => {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     };
-    fetch(`http://localhost:5000/api/plan/menu/${planId}`, request)
+    fetch(`${host}/api/plan/menu/${planId}`, request)
       .then((response) => {
         response.json().then((data) => {
           if (data.error) setError(data.error); // http error

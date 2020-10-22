@@ -17,7 +17,7 @@ const LogOut = () => {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     };
-    fetch('http://localhost:5000/api/auth/logout', request)
+    fetch(`${process.env.REACT_APP_HOST}/api/auth/logout`, request)
       .then((response) => {
         setUser(null);
         setMsg('You logged out successfully!');

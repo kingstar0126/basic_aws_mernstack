@@ -19,7 +19,7 @@ const Recipe = ({ id, match, history }) => {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     };
-    fetch(`http://localhost:5000/api/menu/${recipeId}`, request)
+    fetch(`${process.env.REACT_APP_HOST}/api/menu/${recipeId}`, request)
       .then((response) => {
         response.json().then((data) => {
           if (data.error) setError(data.error); // http error
