@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Image from 'react-bootstrap/Image';
 
+import UserContext from '../../context/UserContext';
 import './Home.css';
 
 /** Options grid contaianer */
@@ -31,20 +32,21 @@ const Options = ({ images, history }) => (
 );
 
 /** Final start now container */
-const StartNow = ({ images, history }) => (
+const StartNow = ({ images, history, user }) => (
   <Container fluid className='startNow'>
     <Row>
       <Image src={images('./Cutlery.svg')} width='100' height='100' />
       <h2>Register Today</h2>
       <strong>Choose the plan that best suits you</strong>
       <p>You can change and cancel any time you want</p>
-      <Button variant='secondary' onClick={() => history.push('/signin')}>Get Started</Button>
+      {user ? <Button variant='secondary' onClick={() => history.push('/user/thisWeek')}>Your delivery</Button>
+        : <Button variant='secondary' onClick={() => history.push('/signin')}>Get Started</Button>}
     </Row>
   </Container>
 );
 
 /** Steps to take section */
-const Steps = ({ images, history }) => (
+const Steps = ({ images, history, user }) => (
   <Container fluid className='steps'>
     <Row>
       <Col className='stepsBg' xs={12} md={6}>
@@ -58,14 +60,17 @@ const Steps = ({ images, history }) => (
           <li>Unpack your box</li>
           <li>Cook and enjoy</li>
         </ul>
-        <Button onClick={() => history.push('/signin')}>Start Now</Button>
+        {user
+          ? <Button onClick={() => history.push('/user/thisWeek')}>Your delivery</Button>
+          : <Button onClick={() => history.push('/signin')}>Start Now</Button>
+        }
       </Col>
     </Row>
   </Container>
 );
 
 /** Why us container */
-const WhyUs = ({ images, history }) => (
+const WhyUs = ({ images, history, user }) => (
   <Container className='whyUs my-5'>
     <h2 className='text-center my-5'>Why Daily Recipe</h2>
     <Row>
@@ -89,7 +94,9 @@ const WhyUs = ({ images, history }) => (
         <p className='listTitle'>Call yourself a home cook</p>
         <p>You will be able to learn and cook impressive top quality meals, you will feel proud!</p>
       </Col>
-      <Button className='mx-auto' onClick={() => history.push('/singin')}>Join Us</Button>
+      {user
+        ? <Button className='mx-auto' onClick={() => history.push('/user/thisWeek')}>Your delivery</Button>
+        : <Button className='mx-auto' onClick={() => history.push('/singin')}>Join Us</Button>}
     </Row>
   </Container>
 );
@@ -137,18 +144,28 @@ const Home = ({ history }) => {
   images.keys().forEach((key) => {
     images(key);
   });
+  const { user } = useContext(UserContext);
+  console.log(user);
 
   return (
     <div className='home'>
       <Container fluid className='homeHeader'>
         <h1>Welcome to Daily Recipe, where we deliver meals and you cook them</h1>
-        <Button variant='secondary' size='lg' className='mx-auto' onClick={() => history.push('/signin')}>Get Started</Button>
+        {user
+          ? <Button variant='secondary'
+              size='lg'
+              className='mx-auto'
+              onClick={() => history.push('/user/thisWeek')}>Your next delivery</Button>
+          : <Button variant='secondary'
+              size='lg'
+              className='mx-auto'
+              onClick={() => history.push('/signin')}>Get Started</Button> }
       </Container>
-      <WhyUs images={images} history={history} />
-      <Box images={images} history={history}/>
-      <Options images={images} history={history} />
-      <Steps images={images} history={history}/>
-      <StartNow images={images} history={history} />
+      <WhyUs images={images} history={history} user={user} />
+      <Box images={images} history={history} user={user} />
+      <Options images={images} history={history} user={user} />
+      <Steps images={images} history={history} user={user} />
+      <StartNow images={images} history={history} user={user} />
     </div>
   );
 };
