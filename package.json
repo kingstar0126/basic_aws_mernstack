@@ -1,7 +1,9 @@
 {
   "name": "daily-recipe",
+  "author": "Sofia Cheung Guardia",
+  "license": "MIT",
   "version": "0.1.0",
-  "description": "A delivery service website inspired by Blue Apron",
+  "description": "An ingredient-to-recipe meal kit service website",
   "private": true,
   "dependencies": {
     "bcrypt": "^5.0.0",
@@ -14,6 +16,10 @@
     "mongoose": "^5.10.0",
     "stripe": "^8.97.0",
     "validator": "^13.1.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Svcg17/DailyRecipe"
   },
   "scripts": {
     "start": "nodemon --exec babel-node --presets @babel/preset-env ./server.js"
