@@ -1,5 +1,5 @@
-#!/bin/sh     
-sudo git pull origin master
+#!/bin/sh
+git pull
 sudo npm install
 cd client
 npm install
