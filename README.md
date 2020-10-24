@@ -1,4 +1,6 @@
-# ![DailyRecipe logo](./client/src/assets/logo.png)
+![](./client/src/assets/logo.png)
+
+
 DailyRecipe is a full-stack web application that acts as an ingredient-and-recipe meal kit service.
 
 # Features
