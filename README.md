@@ -1,4 +1,4 @@
-![](./client/src/assets/logo.png)
+![](./client/src/assets/Logo.png)
 
 
 DailyRecipe is a full-stack web application that acts as an ingredient-and-recipe meal kit service.
@@ -42,7 +42,7 @@ Examples:
     - MongoDB: NoSQL database program
 
 - Deployment:
-    - Amazon Web Services: Amazon EC2 Linux instance (Ubuntu)
+    - Amazon Web Services: Amazon EC2 Linux instance (Ubuntu). [This](https://dev.to/rmiyazaki6499/deploying-a-production-ready-react-express-app-on-aws-62m) article was a great resource.
     - AWS SSM Send-Command Github Action: Continuous Deployment
 
 - Linter:
