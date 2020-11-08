@@ -145,7 +145,6 @@ const Home = ({ history }) => {
     images(key);
   });
   const { user } = useContext(UserContext);
-  console.log(user);
 
   return (
     <div className='home'>
