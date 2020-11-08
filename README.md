@@ -1,6 +1,5 @@
 ![](./client/src/assets/Logo.png)
 
-
 DailyRecipe is a full-stack web application that acts as an ingredient-and-recipe meal kit service. Visit [DailyRecipe](https://dailyrecipe.dev/)
 
 # Features
@@ -54,16 +53,29 @@ Examples:
 
 # Setup
 To run project locally make sure you have NodeJs installed and:
-1. Clone the repository: `git@github.com:Svcg17/DailyRecipe.git`.
+1. Clone the repository: `git clone git@github.com:Svcg17/DailyRecipe.git`.
 2. Run `npm install` to install the project's dependencies.
-3. To start the express server on port `5000` run `npm run start`.
-4. Go to the client folder `cd client` and repeat step 4.
-5. To build the React app together run `npm run build`.
+3. Create a file named `.env` in the root folder of the project.
+    Copy and paste the following inside the file:
+    ```
+    TOKEN_SECRET="<INSERT TOKEN SECRET>"
+    DB="mongodb+srv://dailyrecipepublic:dailyrecipepublicpwd@cluster0.iqkzb.mongodb.net/MyDailyRecipes?retryWrites=true&w=majority"
+    PORT=5000
+    ```
+    - TOKEN_SECRET: long string used to encrypt/decrypt the data stored in the jwt token. You can generate a value for the TOKEN_SECRET by using Node's `crypto` library: `require('crypto').randomBytes(64).toString('hex')`.
+    - DB: MongoDB connection string. note: this is a read only connection to the database so you won't be able to create any users or update plans. 
+    - PORT: port to run express server on
+4. To start the express server on port `5000` run `npm run start`.
+5. Go to the client folder `cd client` and repeat step 2.
+6. Create a file named `.env` and paste `REACT_APP_HOST=http://localhost:5000` inside. This is host used in the react server.
+7. To build the React app run `npm run build`.
 6. Open `http://localhost:5000/` and you should see the DailyRecipe website.
 
 # Inspiration
 Heavily inspired by meal kit services like [Blue Apron](https://www.blueapron.com/), [Hello Fresh](https://www.hellofresh.com/).
 
+# Coming soon 
+Setup in a docker container
 
 # About
-Made by Sofia Cheung | [Linkedin](https://www.linkedin.com/in/sofiacheung/)
+Made by Sofía Cheung | [Linkedin](https://www.linkedin.com/in/sofiacheung/)
