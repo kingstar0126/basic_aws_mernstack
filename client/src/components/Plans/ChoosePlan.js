@@ -30,7 +30,7 @@ const ChoosePlan = ({ history }) => {
 
   const images = [Individual, Vegetarian, Family];
 
-  /** Calls API to store a users plan if they have one */
+  /** Calls API find if a user has a plan */
   useEffect(() => {
     const request = {
       method: 'GET',
@@ -83,7 +83,6 @@ const ChoosePlan = ({ history }) => {
     };
     fetch(`${process.env.REACT_APP_HOST}/api/users/plan`, request)
       .then((response) => {
-        // http response error
         response.json().then((data) => {
           if (data.error) setError(data.error); // http response error
           else {
