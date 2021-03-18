@@ -74,8 +74,5 @@ To run project locally make sure you have NodeJs installed and:
 # Inspiration
 Heavily inspired by meal kit services like [Blue Apron](https://www.blueapron.com/), [Hello Fresh](https://www.hellofresh.com/).
 
-# Coming soon 
-Setup in a docker container
-
 # About
 Made by Sofía Cheung | [Linkedin](https://www.linkedin.com/in/sofiacheung/)
