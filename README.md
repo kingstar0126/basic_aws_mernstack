@@ -1,6 +1,6 @@
 ![](./client/src/assets/Logo.png)
 
-DailyRecipe is a full-stack web application that acts as an ingredient-and-recipe meal kit service. Visit [DailyRecipe](https://dailyrecipe.dev/)
+DailyRecipe (no longer deployed) is a full-stack web application that acts as an ingredient-and-recipe meal kit service.
 
 # Features
 - User authentication (JWT)
